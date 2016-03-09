@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" href="styles/reset.css" />
+	<link rel="stylesheet" href="styles/main.css" />
+</head>
+<body>
+
+	<div style=" width: 200px; height: 200px; position: absolute; z-index: 1" id="out"></div>
+	<audio src="audio/bg.mp3" id="bgm" preload="auto">
+		<p>Your browser does not support the audio element </p>
+	</audio>
+	<div class="projContainer">
+		<canvas id="renderCanvas" class="canvas" ></canvas>
+		<canvas id="preloader" class="canvas" ></canvas>
+	</div>
+	<div class="projControls">
+		<span id="decreaseVolume" ></span>
+		<span id="increaseVolume" ></span>
+	</div>
+
+<script src="lib/tween.js"></script>
+<script src="lib/babylon.js"></script>
+<script src="lib/meshmerge.js"></script>
+<script src="lib/hand.js"></script>
+<script src="scripts/main.js"></script>
+
+</body>
+</html>
