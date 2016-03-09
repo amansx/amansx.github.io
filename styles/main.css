@@ -144,4 +144,5 @@ nav{ display: inline }
 .hasBg.p1_1{ background: url('../project-images/p1/1.png') no-repeat center center; }
 .hasBg.p2_1{ background: url('../project-images/p2/1.png') no-repeat top left; }
 .hasBg.p3_1{ background: url('../project-images/p3/1.png') no-repeat top center; }
+.hasBg.p4_1{ background: black url('../project-images/p4/1.jpg') no-repeat center center; }
 
