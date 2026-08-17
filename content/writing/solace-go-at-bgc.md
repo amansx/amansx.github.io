@@ -4,6 +4,7 @@ description: "How a C++-to-Go binding made a proven event broker feel native to 
 date: 2020-06-05
 category: "Systems / Open source"
 read_time: "5 minute read"
+thumbnail: "/assets/thumb-solace-go.svg"
 repository_url: "https://github.com/amansx/solace-go"
 ---
 

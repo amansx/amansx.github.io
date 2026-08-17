@@ -4,6 +4,7 @@ description: "How a Kubernetes controller joined application stacks and live Cad
 date: 2026-01
 category: "Systems / Deployment infrastructure"
 read_time: "8 minute read"
+thumbnail: "/assets/thumb-coupang-bluegreen.svg"
 ---
 
 A deployment script can move an application forward. A deployment system has to know how to stop, recover, explain itself, and earn another team's trust.

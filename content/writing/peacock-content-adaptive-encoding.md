@@ -4,6 +4,7 @@ description: "How a Go Kubernetes operator coordinated content-adaptive video en
 date: 2025-05
 category: "Systems / Media infrastructure"
 read_time: "9 minute read"
+thumbnail: "/assets/thumb-peacock-cae.svg"
 ---
 
 The expensive way to encode a video library is to treat every second of every title as equally difficult.

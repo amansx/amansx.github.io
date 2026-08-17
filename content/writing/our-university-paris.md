@@ -3,52 +3,64 @@ title: "Five Minutes in Paris"
 date: 2015-11-08
 category: "Archive / Product systems"
 description: "Presenting OurUniversity at Capgemini’s Business Priority Week hackathon, and making workplace learning feel social, visible, and worth returning to."
+read_time: "8 minute read"
+thumbnail: "/assets/our-university-paris.jpg"
 source: "https://www.youtube.com/watch?v=4pDdzNo8b6Y"
 ---
 
-The screen behind me showed 4:39. In front of me was a Paris auditorium, a hackathon leaderboard, and five minutes to explain why workplace learning needed to feel less like a catalog.
+The screen behind me showed 4:39. I had five minutes to explain a system we had built in 36 hours, in a room near Paris, while a leaderboard waited behind the demo.
 
-This was Capgemini’s Business Priority Week in November 2015. I was presenting OurUniversity, a prototype built around a simple product idea: people learn more readily when courses are connected to identity, peers, progress, and a reason to return.
+The video is titled “IGATE / Capgemini BPW Hackathon Presentation,” was published on November 8, 2015, and identifies the event as Business Priority Week that November. I was presenting **OurUniversity**, a prototype for making workplace learning social, measurable, and worth returning to.
 
-The surviving video was uploaded on November 8, 2015. It preserves more than the interface. It catches a younger version of me translating a working system into a story for a room full of people, under a timer, far from home.
+## What Business Priority Week was
 
-## A catalog is not a learning community
+Business Priority Week was part of Capgemini University’s internal learning program at Les Fontaines, the company’s campus near Paris. Capgemini described the format as a blend of classroom learning and activities organized around strategic priorities, meant to create a shared language across teams. In 2015, the university reported 3.3 million learning hours for more than 161,000 participants.
 
-Traditional internal learning portals were good at storing material. They were less effective at creating momentum. A long list of courses can answer “what exists?” without answering “what should I learn next?”, “who else is working on this?”, or “how do I know I am progressing?”
+The company’s 2015 annual report gives the hackathon more shape: designers and developers from six international teams, including an IGATE team, built application prototypes in 36 hours. The target was not a generic demo. It was the experience of people learning through Capgemini University.
 
-OurUniversity treated those as product questions. The prototype organized courses, completed work, peer challenges, and trophies into one navigable system. The catalog included subjects such as artificial intelligence, business analytics, robotics, algorithms, and data mining. Learners could take a course, exchange presentations, compare areas of interest, and see recent recognition.
+The timing matters. Capgemini completed its acquisition of IGATE on July 1, 2015, adding roughly 30,000 colleagues. By November, this stage was also a small piece of integration in public: an IGATE team contributing to a Capgemini-wide learning event only months after the deal closed.
 
-The pitch also made room for different levels of visibility. Participation could be social without requiring everyone to expose a profile photo. That choice mattered because useful collaboration needs psychological safety as much as it needs features.
+## The problem was isolation
 
-## The loop behind the screens
+The pitch opens with an observation that still holds: learning weakens when it happens alone. A course catalog can store material, but storage does not create curiosity, accountability, or a useful sense of progress.
 
-The interface exposed four connected behaviors:
+OurUniversity started with identity. A learner registered, selected an avatar, and could remain pseudonymous while participating. That was a thoughtful tension for 2015. The system wanted social interaction without demanding a public profile as the price of entry.
 
-1. **Discover.** Find material through topics, interests, and the activity of other learners.
-2. **Practice.** Take a course and contribute something useful back, including presentations and notes.
-3. **Challenge.** Invite another person into a course and turn passive browsing into a shared commitment.
-4. **Recognize.** Make progress visible through completed courses, comparisons, and trophies that could be shared or exchanged.
+From there, the demo moved through a working loop:
 
-Gamification was not the product by itself. The trophies were a compact signal inside a larger feedback loop. Discovery created an intention, a challenge added social pressure, completion created evidence, and recognition made the next action easier.
+1. **Understand yourself.** Graphs compared the learner with their own earlier activity, turning course history into a visible trajectory.
+2. **Find people.** A short identifier or QR code added a friend without requiring a broad directory search.
+3. **Compare interests.** Peer views showed differences across areas such as machine learning and data mining.
+4. **Choose and complete work.** The catalog exposed courses, ratings, usage, downloadable presentations, scores, and retakes.
+5. **Create a reason to return.** Challenges and trophies connected learning outcomes to another person.
 
-## Recommendation before recommendation was everywhere
+## The product model behind the demo
 
-One dashboard compares two computer science learners across topics such as algorithms and data mining. The purpose was not to reduce a person to a score. It was to turn the learning record into a useful map: where interests overlap, where they diverge, and what course might make sense next.
+Under the interface were five related models: a pseudonymous identity, a course catalog, a progress record, a peer graph, and an incentive ledger. None was especially powerful alone. Their value came from the joins between them.
 
-That idea now feels familiar because ranking and recommendation systems appear in nearly every product. In this prototype, the same mechanism was aimed inward. Instead of ranking content only by global popularity, the system used the shape of a learner’s activity and peer network to improve discovery.
+A completed course updated the progress record. Progress changed the graphs. Topic activity improved discovery. A peer challenge gave the next course social context. A high score produced a trophy that could be shared or contested. The demo’s memorable line was that it was both a game and learning, but the deeper idea was a closed feedback system.
 
-## What the five minutes taught me
+> The prototype turned a training catalog into a small social economy of attention, evidence, and recognition.
 
-A hackathon pitch forces architecture, interface, and narrative into the same constraint. The prototype has to work, but the audience also has to understand the value before the clock runs out.
+## What the transcript reveals
 
-The Paris presentation moves quickly between the social premise and the concrete screens: identity, anonymous participation, course comparison, downloadable material, challenges, and trophies. That sequence was the real design. Each screen answered the next objection before it could become a reason to disengage.
+The presentation uses “machine learned” casually while moving through topic recommendations and ratings. The recording does not establish a trained recommendation model, and it would be revisionist to claim one. What it clearly demonstrates is the product surface a ranking system would need: behavioral signals, course affinity, peer relationships, scores, recency, and repeated use.
 
-> A useful product story is a system trace told in human order.
+The trophy mechanism is equally interesting. A learner could challenge a friend and risk losing a trophy if the friend scored higher. I joked on stage that this sounded like betting on education. The wording was loose, but the mechanism had a serious purpose: transform an inert badge into a stake that could produce another learning session.
 
-Looking back, I would simplify the interface and be more precise about incentives. I would keep the central belief. Learning systems work better when they help people find one another, make progress legible, and turn knowledge into participation rather than inventory.
+Some choices have aged. A modern version would be more restrained with comparison, explain how recommendations are calculated, and give people strong controls over visibility. The durable pieces are privacy-aware identity, progress over time, social accountability, and a path from insight to action.
 
-## Paris, preserved
+## Five minutes as a systems trace
 
-The video is a small artifact from a larger career. It connects my early work on interactive systems with the distributed platforms I build now: both ask how independent actors discover state, coordinate around it, and receive feedback that moves the system forward.
+The pitch moves in the same order a user would experience the product: register, choose an identity, inspect progress, connect with someone, discover a course, complete it, improve a score, and receive recognition. That order made a large prototype understandable before the timer expired.
 
-And personally, it keeps the room intact: the auditorium, the large Capgemini screen, the leaderboard, the countdown, and me on stage in Paris explaining what we had made.
+Looking back, the work connects directly to how I think about distributed systems now. Independent actors need identity, discoverable state, coordination rules, observable progress, and feedback. In 2015 those actors were learners rather than services, but the design problem was already about making a network behave coherently.
+
+The video keeps the moment intact: the Capgemini screen, the BPW leaderboard, the countdown, and a newly combined IGATE and Capgemini audience watching an idea move from isolated training to shared momentum.
+
+## Sources
+
+- [Presentation video](https://www.youtube.com/watch?v=4pDdzNo8b6Y)
+- [Capgemini 2015 annual report](https://www.icono.tchirieff.fr/assets/2015_rapport_annuel.pdf)
+- [Capgemini University and Business Priority Week](https://www.capgemini.com/co-es/careers/carreras-profesionales/universidad-de-capgemini/)
+- [Completion of the IGATE acquisition](https://www.capgemini.com/ar-es/news/press-releases/capgemini-completa-la-adquisicion-de-igate-corporation/)

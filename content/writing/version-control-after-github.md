@@ -4,6 +4,7 @@ description: "What a GitHub outage, agentic development, and Dolt reveal about t
 date: 2026-08-17
 category: "Systems / Developer infrastructure"
 read_time: "9 minute read"
+thumbnail: "/assets/thumb-version-control.svg"
 ---
 
 The strange thing about a GitHub outage is that Git usually keeps working.

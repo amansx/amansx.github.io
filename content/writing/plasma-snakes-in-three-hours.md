@@ -4,6 +4,7 @@ description: "The journey behind a renderer-agnostic Snake game built for a Squa
 date: 2018-03-05
 category: "Archive / Interview build"
 read_time: "7 minute read"
+thumbnail: "/assets/plasma-snakes-interview-build.png"
 image: "../../assets/plasma-snakes-interview-build.png"
 repository_url: "https://github.com/amansx/plasma-snakes"
 ---

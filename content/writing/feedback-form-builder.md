@@ -4,6 +4,7 @@ description: "A drag-and-drop, schema-driven form editor built from Handlebars, 
 date: 2016-03-09
 category: "Archive / Interface systems"
 read_time: "8 minute read"
+thumbnail: "/assets/feedback-form-builder.png"
 image: "../../assets/feedback-form-builder.png"
 repository_url: "https://github.com/amansx/feedback-form-builder"
 ---

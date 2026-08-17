@@ -4,8 +4,9 @@ description: "How a one-word JSFoo brief became a procedural Babylon.js city and
 date: 2014-09-23
 category: "Archive / Creative code"
 read_time: "8 minute read"
+thumbnail: "/project-images/p1/1.png"
 image: "../../project-images/p1/1.png"
-project_url: "../../projects/squares/index.htm"
+project_url: "/projects/squares/"
 repository_url: "https://github.com/amansx/SquareCity"
 source_url: "https://engineering.wingify.com/posts/jsfoo-run-up-event/"
 ---
