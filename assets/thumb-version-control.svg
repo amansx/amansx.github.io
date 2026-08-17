@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Git is distributed, workflows are not</title>
+  <desc id="desc">A branching version graph converging on one red coordination node.</desc>
+  <rect width="1200" height="675" fill="#f4f0e7"/>
+  <g stroke="#c8c1b5" stroke-width="2" opacity=".65"><path d="M0 112h1200M0 225h1200M0 338h1200M0 451h1200M0 564h1200"/><path d="M150 0v675M300 0v675M450 0v675M600 0v675M750 0v675M900 0v675M1050 0v675"/></g>
+  <g fill="none" stroke="#1e1e1c" stroke-width="12" stroke-linecap="round"><path d="M150 190h180c90 0 95 150 190 150h220"/><path d="M150 338h590"/><path d="M150 486h180c90 0 95-148 190-148"/><path d="M780 338h270"/></g>
+  <g fill="#f4f0e7" stroke="#1e1e1c" stroke-width="10"><circle cx="150" cy="190" r="24"/><circle cx="150" cy="338" r="24"/><circle cx="150" cy="486" r="24"/><circle cx="520" cy="338" r="24"/></g>
+  <circle cx="780" cy="338" r="48" fill="#f05245" stroke="#1e1e1c" stroke-width="10"/>
+  <text x="70" y="90" fill="#1e1e1c" font-family="Arial, sans-serif" font-size="38" font-weight="700">VERSION CONTROL / COORDINATION</text>
+  <text x="70" y="622" fill="#67645f" font-family="monospace" font-size="26">LOCAL WORK → SHARED BOTTLENECK</text>
+</svg>

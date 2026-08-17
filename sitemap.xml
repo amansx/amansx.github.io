@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://anixir.com/</loc></url>
-  <url><loc>https://anixir.com/work.html</loc></url>
-  <url><loc>https://anixir.com/art.html</loc></url>
-  <url><loc>https://anixir.com/writing.html</loc></url>
-  <url><loc>https://anixir.com/about.html</loc></url>
-  <url><loc>https://anixir.com/article-version-control-after-github.html</loc></url>
-  <url><loc>https://anixir.com/article-coupang-bluegreen.html</loc></url>
-  <url><loc>https://anixir.com/article-peacock-cae.html</loc></url>
-  <url><loc>https://anixir.com/article-solace-go.html</loc></url>
-  <url><loc>https://anixir.com/article-plasma-snakes.html</loc></url>
-  <url><loc>https://anixir.com/article-feedback-form-builder.html</loc></url>
-  <url><loc>https://anixir.com/article-squares-mean-a-world-to-us.html</loc></url>
+  <url><loc>https://anixir.com/work/</loc></url>
+  <url><loc>https://anixir.com/art/</loc></url>
+  <url><loc>https://anixir.com/writing/</loc></url>
+  <url><loc>https://anixir.com/about/</loc></url>
+  <url><loc>https://anixir.com/writing/version-control-after-github/</loc></url>
+  <url><loc>https://anixir.com/writing/coupang-bluegreen/</loc></url>
+  <url><loc>https://anixir.com/writing/peacock-cae/</loc></url>
+  <url><loc>https://anixir.com/writing/solace-go/</loc></url>
+  <url><loc>https://anixir.com/writing/plasma-snakes/</loc></url>
+  <url><loc>https://anixir.com/writing/feedback-form-builder/</loc></url>
+  <url><loc>https://anixir.com/writing/our-university-paris/</loc></url>
+  <url><loc>https://anixir.com/writing/squares-mean-a-world-to-us/</loc></url>
 </urlset>

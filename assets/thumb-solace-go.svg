@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Solace Go event bridge</title>
+  <desc id="desc">A Go service connected through cgo and a C++ wrapper to a Solace event broker.</desc>
+  <rect width="1200" height="675" fill="#f4f0e7"/>
+  <g stroke="#c8c1b5" stroke-width="2" opacity=".65"><path d="M0 112h1200M0 225h1200M0 338h1200M0 451h1200M0 564h1200"/><path d="M150 0v675M300 0v675M450 0v675M600 0v675M750 0v675M900 0v675M1050 0v675"/></g>
+  <g fill="#f4f0e7" stroke="#1e1e1c" stroke-width="9"><circle cx="155" cy="338" r="102"/><circle cx="450" cy="338" r="102"/><circle cx="745" cy="338" r="102"/></g>
+  <circle cx="1040" cy="338" r="108" fill="#1e1e1c" stroke="#f05245" stroke-width="12"/>
+  <g stroke="#f05245" stroke-width="12"><path d="M257 338h91M552 338h91M847 338h85"/></g>
+  <g fill="#1e1e1c" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="middle"><text x="155" y="346">GO</text><text x="450" y="346">CGO</text><text x="745" y="346">C++</text></g><text x="1040" y="346" text-anchor="middle" fill="#f4f0e7" font-family="Arial, sans-serif" font-size="28" font-weight="700">SOLACE</text>
+  <text x="70" y="90" fill="#1e1e1c" font-family="Arial, sans-serif" font-size="38" font-weight="700">SOLACE GO / EVENT BRIDGE</text>
+  <text x="70" y="622" fill="#67645f" font-family="monospace" font-size="26">TYPED CHANNELS / NATIVE CLIENT / PUBSUB+</text>
+</svg>
