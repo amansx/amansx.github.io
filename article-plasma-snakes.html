@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Aman Singh built a renderer-agnostic Babylon.js Snake game for a Squarespace interview in under three hours.">
+  <title>Anixir | Three Hours, Two Renderers, One Plasma Snake</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-frame">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Anixir home"><span class="brand-mark">&lt;/&gt;</span><span class="brand-name">ANIXIR</span></a>
+      <nav class="site-nav" aria-label="Primary navigation"><a href="work.html">Work</a><a href="art.html">Art</a><a aria-current="page" href="writing.html">Writing</a><a href="about.html">About</a></nav>
+      <a class="pill pill-dark" href="about.html#experience">Experience</a>
+    </header>
+
+    <main class="article-page">
+      <a class="back-link" href="writing.html">← All writing</a>
+      <header class="article-header">
+        <div class="article-meta"><span>Archive / Interview build</span><time datetime="2018-03-05">March 5, 2018</time><span>7 minute read</span></div>
+        <h1>Three Hours, Two Renderers, One Plasma Snake</h1>
+        <p class="dek">The journey behind a renderer-agnostic Snake game built for a Squarespace interview in under three hours.</p>
+      </header>
+
+      <figure class="article-hero-media article-hero-dark">
+        <img src="assets/plasma-snakes-interview-build.png" width="2734" height="1130" alt="Plasma Snakes glowing yellow grid with a bright snake and magenta power-up">
+        <figcaption>Plasma Snakes / Babylon.js renderer</figcaption>
+      </figure>
+
+      <div class="article-layout">
+        <aside class="article-aside"><span>02</span><p>Constraint: under 3 hours<br>Target: Squarespace<br>Views: ASCII + 3D</p></aside>
+        <article class="prose article-prose">
+          <p class="lead">The interview exercise was bounded by time, so I made the architecture do more than the clock could.</p>
+          <p>I built <strong>Plasma Snakes</strong> for a Squarespace interview in under three hours: a playable Snake engine with a glowing Babylon.js presentation, an ASCII renderer, sound, a power-up, and a clean boundary between the rules of the game and the way those rules appeared on screen.</p>
+          <p>The neon grid was the visible result. The renderer split was the actual decision.</p>
+
+          <h2>Start with the part that must be true</h2>
+          <p>Snake has a small set of invariants. A player has a direction, a head, and an ordered body. A board has dimensions and a target. Each tick advances the head, checks the walls and the body, grows or removes the tail, and decides whether the run continues.</p>
+          <p>I encoded those rules in three small classes:</p>
+          <ul><li><code>Player</code> owns direction, head position, and the body “skeleton”;</li><li><code>GameBoard</code> owns the 20-by-40 grid and current power-up coordinates;</li><li><code>GameEngine</code> owns stepping, collision detection, growth, speed changes, and renderer callbacks.</li></ul>
+          <p>The body is stored as strings such as <code>"4,12"</code>. It is not a glamorous representation, but it made occupancy checks and renderer handoff direct under a severe deadline. The engine could answer the only question each view needed: what occupies this coordinate right now?</p>
+
+          <h2>One state, two views</h2>
+          <p>The HTML includes a textarea and a canvas. Neither is the game. They are two projections of the same game state.</p>
+          <p><code>RendererAscii</code> walks the board matrix and prints <code>_</code>, <code>*</code>, and <code>o</code> characters. <code>Renderer3D</code> reads the same player skeleton and power-up position, then applies materials to Babylon.js meshes. Direction input changes the player through the same <code>face()</code> method in both modes.</p>
+          <pre><code>engine.step();
+
+if (rendererA) rendererA.render();
+if (rendererB) rendererB.render();</code></pre>
+          <p>It also kept scope under control. I could prove the game logic cheaply in ASCII, then spend the remaining time on the 3D presentation without rewriting the rules.</p>
+
+          <h2>Spend the polish where it reads</h2>
+          <p>The Babylon.js renderer creates an ArcRotate camera, a dark scene, emissive yellow and magenta materials, a fullscreen Start control, sound effects, background music, and a glow layer. The grid is made from narrow boxes laid across the ground plane. Snake segments rise slightly above it as bright cubes.</p>
+          <p>The power-up adds a small mechanical twist: for two turns, the step interval changes from 100 milliseconds to 1,000 milliseconds. It is visually obvious, changes the rhythm immediately, and required very little extra surface area in the engine.</p>
+          <p>The audio is similarly economical. There is a loop for the run, a short sound when the snake feeds, and cheering at game over. Each choice has a clear state transition to attach to.</p>
+
+          <h2>Avoid work inside the loop</h2>
+          <p>The board contains 800 possible cells. Instead of constructing and destroying boxes every tick, the 3D renderer creates the cells once. Inactive blocks are moved out of view; active snake and power-up positions are brought back and given the correct material.</p>
+          <pre><code>clearBlocks() {
+  for (const block of this.blocks) block.position.y = 100;
+  this.blocks = [];
+}</code></pre>
+          <p>That is a tiny object pool. It kept allocation out of the game loop and made frame behavior predictable. Under a three-hour constraint, the simplest performance strategy was to stop doing unnecessary work.</p>
+
+          <h2>The repository clock</h2>
+          <p>The public Git history is concentrated on March 5, 2018:</p>
+          <pre><code>07:54:40 ET  repository initialized
+07:55:55 ET  engine, renderers, styles, and audio committed
+07:57:26 ET  metadata cleanup
+08:30:42 ET  code documentation added
+17:09:42 ET  deployed link added to the README</code></pre>
+          <p>The application had been built locally before the source import, so Git cannot measure the full interview clock. It does preserve the shape of the finish: core artifact first, followed by cleanup, documentation, and the hosted demo.</p>
+
+          <h2>What survived the deadline</h2>
+          <p>There are things I would refine now: prevent immediate direction reversal, replace key codes, make speed changes easier to reason about, and separate audio policy from rendering. None of that changes what made the exercise successful.</p>
+          <ol><li>Make the rules explicit.</li><li>Make the rules render anywhere.</li><li>Use the final pass to establish a visual identity.</li><li>Document enough that another engineer can follow the decisions.</li></ol>
+          <blockquote>Plasma Snakes looked like a neon game, but it was really an argument for boundaries.</blockquote>
+
+          <figure class="article-figure"><img src="assets/plasma-snakes-github.jpg" width="1280" height="720" alt="The Plasma Snakes repository on GitHub"><figcaption>The preserved repository: five commits, all on March 5, 2018.</figcaption></figure>
+          <div class="article-links"><a href="https://github.com/amansx/plasma-snakes" target="_blank" rel="noopener noreferrer">View repository ↗</a></div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer"><span>Next archive note</span><a href="article-feedback-form-builder.html">The Form Builder →</a></footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The journey behind Aman Singh's schema-driven drag-and-drop Feedback Form Builder.">
+  <title>Anixir | The Form Builder Before State-Driven UI Became the Default</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-frame">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Anixir home"><span class="brand-mark">&lt;/&gt;</span><span class="brand-name">ANIXIR</span></a>
+      <nav class="site-nav" aria-label="Primary navigation"><a href="work.html">Work</a><a href="art.html">Art</a><a aria-current="page" href="writing.html">Writing</a><a href="about.html">About</a></nav>
+      <a class="pill pill-dark" href="about.html#experience">Experience</a>
+    </header>
+
+    <main class="article-page">
+      <a class="back-link" href="writing.html">← All writing</a>
+      <header class="article-header">
+        <div class="article-meta"><span>Archive / Interface systems</span><time datetime="2016-03-09">March 9, 2016</time><span>8 minute read</span></div>
+        <h1>The Form Builder Before State-Driven UI Became the Default</h1>
+        <p class="dek">A drag-and-drop, schema-driven editor built from Handlebars, Way.js, jQuery, and a deliberately explicit data model.</p>
+      </header>
+
+      <figure class="article-hero-media">
+        <img src="assets/feedback-form-builder.png" width="2520" height="1200" alt="Feedback Form Builder interface with toolbox, canvas, and property editor">
+        <figcaption>Feedback Form Builder / editor, preview, and bound property panel</figcaption>
+      </figure>
+
+      <div class="article-layout">
+        <aside class="article-aside"><span>03</span><p>Public record: 2016<br>Repository port: 2017<br>Output: nested JSON</p></aside>
+        <article class="prose article-prose">
+          <p class="lead">Before component trees and state stores became the default language of frontend work, I built a form editor around the same underlying idea: the interface should be a projection of structured data.</p>
+          <p>This was not a world without frameworks. AngularJS had already made two-way binding famous, and React was beginning to reshape how teams thought about UI. But those patterns were not yet universal muscle memory. For this project, I assembled the model explicitly from smaller pieces: Handlebars templates, Way.js bindings, jQuery events, and a data structure I controlled.</p>
+          <p>The result was a drag-and-drop builder that could create multi-page feedback forms, edit every control through a generated property panel, reorder or remove tools, and export the whole composition as nested JSON.</p>
+
+          <h2>Treat controls as data</h2>
+          <p>The builder begins with a registry. Every available item is declared as a root, container, or control. The type determines where it may be dropped; the registry determines its caption, defaults, and whether it can contain another instance of itself.</p>
+          <pre><code>var TOOLS_REGISTRY = {
+  page:     { type: TOOLTYPE_CONTAINER, caption: "page" },
+  button:   { type: TOOLTYPE_CONTROL, caption: "button" },
+  textbox:  { type: TOOLTYPE_CONTROL, caption: "text box" },
+  calendar: { type: TOOLTYPE_CONTROL, caption: "Calendar" },
+  image:    { type: TOOLTYPE_CONTROL, caption: "image" },
+  video:    { type: TOOLTYPE_CONTROL, caption: "youtube video" }
+};</code></pre>
+          <p>That registry drove the toolbox instead of requiring a separate block of interface code for every item. Adding a tool meant adding its declaration and Handlebars template, not rewriting the editor.</p>
+
+          <h2>A small document model</h2>
+          <p>Each dropped tool receives a generated ID and a node record containing its type, data, parent, and child controls. Containers keep an ordered child list. The editor applies simple placement rules before it mutates either the DOM or the model: controls can only enter containers, unknown targets reject drops, and containers decide whether they can contain themselves.</p>
+          <p><code>DataModel</code> owns that registry. It can register fields, return a live data reference for the property panel, remove a node and its descendants, and serialize the editor as a nested tree. The JSON export walks the visible hierarchy and joins it back to the model data by ID.</p>
+          <p>The form being designed was not the editor DOM. The DOM was one representation of a portable schema.</p>
+
+          <h2>Binding without an application framework</h2>
+          <p>The most interesting layer lives in the Handlebars helpers. An <code>updateable</code> helper emits a <code>way-data</code> path such as <code>TL2.label</code> and registers the same property in the model. A <code>control</code> helper inspects naming conventions such as <code>CHK_</code> for checkboxes and <code>TXA_</code> for textareas, then generates the right property editor input with the same binding path.</p>
+          <pre><code>retval += 'way-data="' + guid + '.' + name + '" ';
+DataModel.registerUpdateableNode(guid, name, defaultVal);</code></pre>
+          <p>Way.js then binds the preview, the property editor, and the model. Change the label in the right-hand panel and the control in the canvas updates. Select another tool and the property panel is generated from that node’s available data. The behavior now feels ordinary; at the time, it was the core of the experiment.</p>
+
+          <h2>The editor as a compiler</h2>
+          <ol><li><strong>Declare</strong> a vocabulary of pages and controls.</li><li><strong>Compose</strong> a document through drag, drop, edit, move, and remove operations.</li><li><strong>Export</strong> a nested JSON description that another renderer or service could consume.</li></ol>
+          <p>That is closer to a small compiler than a conventional form. The palette is a language, the canvas is an authoring surface, and the JSON tree is the intermediate representation.</p>
+          <p>The builder included page containers, buttons, text and password fields, textareas, radio buttons, checkboxes, select and multi-select controls, calendars, links, images, labels, separators, and YouTube blocks. The implementation was intentionally open to custom tools because the schema and template system were already generic.</p>
+
+          <h2>Dating the artifact</h2>
+          <p>The earliest verifiable public portfolio record is March 9, 2016, when Form Builder appeared in the original Anixir site alongside Square City. The standalone repository was later preserved as a separate project.</p>
+          <p>That distinction is worth preserving. The repository date records the migration, not necessarily the first day the tool existed.</p>
+
+          <h2>What I recognize in it now</h2>
+          <p>Today I would reach for stronger types, immutable updates, accessible drag-and-drop, tests around serialization, and a clearer separation between editor state and rendered output. I would still keep the central design:</p>
+          <ul><li>one registry defines the tool vocabulary;</li><li>one model owns the document;</li><li>templates describe presentation;</li><li>bindings connect editing controls to model paths;</li><li>JSON is the durable output.</li></ul>
+          <blockquote>The libraries have changed. The architecture has not aged nearly as much.</blockquote>
+
+          <figure class="article-figure"><img src="assets/feedback-form-builder-github.jpg" width="1280" height="720" alt="The Feedback Form Builder repository on GitHub"><figcaption>The preserved repository contains the editor, tool templates, model, bindings, and JSON exporter.</figcaption></figure>
+          <div class="article-links"><a href="https://github.com/amansx/feedback-form-builder" target="_blank" rel="noopener noreferrer">View repository ↗</a></div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer"><span>Next archive note</span><a href="article-plasma-snakes.html">Plasma Snakes →</a></footer>
+  </div>
+</body>
+</html>

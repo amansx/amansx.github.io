@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Aman Singh built CoupangBlueGreen, a Kubernetes controller joining application stacks and live Caddy routing into one recoverable rollout state machine.">
+  <title>Anixir | CoupangBlueGreen: A Deployment API Teams Could Trust</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-frame">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Anixir home"><span class="brand-mark">&lt;/&gt;</span><span class="brand-name">ANIXIR</span></a>
+      <nav class="site-nav" aria-label="Primary navigation"><a href="work.html">Work</a><a href="art.html">Art</a><a aria-current="page" href="writing.html">Writing</a><a href="about.html">About</a></nav>
+      <a class="pill pill-dark" href="about.html#experience">Experience</a>
+    </header>
+
+    <main class="article-page">
+      <a class="back-link" href="writing.html">← All writing</a>
+      <header class="article-header">
+        <div class="article-meta"><span>Systems / Deployment infrastructure</span><time datetime="2026-01">January 2026</time><span>8 minute read</span></div>
+        <h1>CoupangBlueGreen</h1>
+        <p class="dek">A deployment API teams could trust: one Kubernetes controller joining application stacks and live Caddy routing into a recoverable rollout state machine.</p>
+      </header>
+
+      <figure class="system-diagram bluegreen-system" aria-labelledby="bluegreen-system-caption">
+        <div class="stack-plane"><span>Kubernetes / application state</span><div class="deployment-stack stack-active"><small>Active</small><strong>Deployment</strong><b>Service A</b></div><div class="deployment-stack stack-candidate"><small>Candidate</small><strong>Deployment</strong><b>Service B</b></div></div>
+        <i aria-hidden="true">⇄</i>
+        <div class="bluegreen-controller"><span>Desired state</span><strong>Coupang<br>BlueGreen</strong><small>CRD + reconciler</small></div>
+        <i aria-hidden="true">⇄</i>
+        <div class="traffic-plane"><span>Caddy / traffic state</span><div class="route-meter"><i></i><i></i></div><strong>Live route</strong><small>Admin API update</small><div class="request-flow"><b>Requests</b><i>→</i><b>selected stack</b></div></div>
+        <figcaption id="bluegreen-system-caption">The controller reconciled Kubernetes resources and Caddy traffic as one rollout state machine. It was not one distributed transaction.</figcaption>
+      </figure>
+
+      <div class="article-layout">
+        <aside class="article-aside"><span>06</span><p>Coupang / Taiwan 3P<br>May 2025 to Jan 2026<br>Go / Kubernetes / Caddy</p></aside>
+        <article class="prose article-prose">
+          <p class="lead">A deployment script can move an application forward. A deployment system has to know how to stop, recover, explain itself, and earn another team’s trust.</p>
+          <p>At Coupang, I built <strong>CoupangBlueGreen</strong>, an internal Kubernetes controller for legacy HTTP applications in environments where Argo Rollouts and Istio were unavailable. It replaced application-specific pipeline logic with a CRD-driven deployment method that reconciled two complete application stacks, live traffic, rollback, retention, and cleanup.</p>
+          <p>The controller began as a technical solution. It became infrastructure when Coupang’s Taiwan 3P engineering team, outside my Seattle team and reporting structure, made it a production dependency.</p>
+
+          <h2>A rolling update was not the required model</h2>
+          <p>A Kubernetes Deployment can gradually replace an old ReplicaSet with a new one. The Taiwan applications needed a different contract: two independently addressable stacks had to exist at the same time.</p>
+          <p>One stack was active. One was a candidate. Traffic needed to move deliberately only after readiness, the previous version needed to remain available for rollback, and cleanup needed to happen after the rollout was accepted.</p>
+          <p>Without a shared controller, every application team had to rebuild that lifecycle in CI pipelines and deployment scripts, or operate without it.</p>
+
+          <h2>Give the lifecycle one declarative record</h2>
+          <p>I created a CRD describing the application, active and candidate stacks, traffic state, retention, and cleanup policy. The controller created versioned Deployments and Services, waited for the candidate to become ready, shifted traffic, retained the previous stack, and removed it when the rollout reached its terminal state.</p>
+
+          <figure class="system-diagram rollout-machine" aria-labelledby="rollout-machine-caption">
+            <div class="rollout-track"><div><span>01</span><strong>Declare</strong><small>candidate</small></div><i>→</i><div><span>02</span><strong>Create</strong><small>versioned stack</small></div><i>→</i><div><span>03</span><strong>Gate</strong><small>readiness</small></div><i>→</i><div><span>04</span><strong>Shift</strong><small>traffic</small></div><i>→</i><div><span>05</span><strong>Promote</strong><small>retain previous</small></div><i>→</i><div><span>06</span><strong>Clean</strong><small>retired stack</small></div></div>
+            <div class="rollback-track"><span>Failure after traffic begins</span><i>↙</i><strong>Restore previous route</strong><i>→</i><strong>Converge on active stack</strong></div>
+            <figcaption id="rollout-machine-caption">The CRD made rollout state explicit; failure had a defined path back to the previous route.</figcaption>
+          </figure>
+
+          <p>The CRD was intentionally narrow. A platform API succeeds when its users can understand the states without first becoming experts in the controller implementation.</p>
+
+          <h2>Kubernetes state was only half the rollout</h2>
+          <p>The original ingress path used open-source NGINX. Open-source NGINX can apply generated configuration through graceful reloads, but native API-driven changes to live upstreams and traffic weights would have required NGINX Plus or additional custom machinery.</p>
+          <p>I moved this ingress path to Caddy. Its Admin API gave the controller a programmatic surface for updating live routing configuration, and individual Caddy configuration loads were atomic.</p>
+          <blockquote>Kubernetes and Caddy were not one transaction. Reconciliation was the consistency model between them.</blockquote>
+          <p>A Deployment or Service update and a Caddy configuration update still happened through different systems. The controller observed both and repeatedly moved them toward the same rollout state.</p>
+
+          <h2>Make partial failure converge somewhere safe</h2>
+          <p>The most dangerous rollout state is not simply “failed.” It is disagreement: Kubernetes believes the candidate is active while the proxy still sends traffic to the previous stack, or traffic has moved while the candidate is no longer ready.</p>
+          <p>CoupangBlueGreen treated Kubernetes resources and Caddy routing as parts of one reconciliation state machine:</p>
+          <ul><li>if the candidate was not ready, the controller withheld traffic;</li><li>if a rollout failed partway through, it restored the previous route;</li><li>if the candidate became active, it retained the former stack for a predictable rollback window;</li><li>after successful completion, cleanup removed the retired resources.</li></ul>
+          <p>The system did not assume every multi-step operation would complete in one pass. It made every pass safe to repeat.</p>
+
+          <div class="before-after" aria-label="Deployment workflow before and after CoupangBlueGreen">
+            <div><span>Before</span><strong>Per-application scripts</strong><p>Lifecycle logic repeated across pipelines with inconsistent rollback behavior.</p></div>
+            <div><span>After</span><strong>Narrow deployment API</strong><p>Shared states, readiness gates, traffic movement, rollback, retention, and cleanup.</p></div>
+          </div>
+
+          <h2>Adoption was part of the engineering</h2>
+          <p>The Taiwan 3P team had its own roadmap and operational requirements. They had not used Istio or Argo Rollouts in this environment. Handing them a powerful but opaque API would have recreated the same dependency on specialist knowledge.</p>
+          <p>The harder work was making rollout states legible, keeping the CRD and YAML supportable, and making rollback predictable enough for production trust. CoupangBlueGreen replaced per-application scripts with one deployment methodology the team could operate themselves.</p>
+          <p>Over time, it became part of how Taiwan 3P continued shipping legacy applications. The system was subsequently being rolled out in South Korean data centers that had not migrated to Istio. That later rollout was reuse of the platform beyond its original adopter; I do not claim to have led the South Korean expansion.</p>
+          <blockquote>The project changed category when another organization depended on it. It was no longer just a controller I wrote. It was a deployment contract.</blockquote>
+
+          <div class="article-links"><a href="https://caddyserver.com/docs/api" target="_blank" rel="noopener noreferrer">Caddy Admin API ↗</a><a href="https://caddyserver.com/docs/architecture" target="_blank" rel="noopener noreferrer">Caddy architecture ↗</a><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">Kubernetes Deployments ↗</a></div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer"><span>Next systems note</span><a href="article-peacock-cae.html">Encoding Peacock at Library Scale →</a></footer>
+  </div>
+</body>
+</html>

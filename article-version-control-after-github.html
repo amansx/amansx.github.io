@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Git is distributed, but modern developer workflows are not. What a GitHub outage, agentic tools, and Dolt reveal about the next version-control boundary.">
+  <title>Anixir | Git Is Distributed. Our Workflows Aren’t.</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-frame">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Anixir home"><span class="brand-mark">&lt;/&gt;</span><span class="brand-name">ANIXIR</span></a>
+      <nav class="site-nav" aria-label="Primary navigation"><a href="work.html">Work</a><a href="art.html">Art</a><a aria-current="page" href="writing.html">Writing</a><a href="about.html">About</a></nav>
+      <a class="pill pill-dark" href="about.html#experience">Experience</a>
+    </header>
+
+    <main class="article-page">
+      <a class="back-link" href="writing.html">← All writing</a>
+      <header class="article-header">
+        <div class="article-meta"><span>Systems / Developer infrastructure</span><time datetime="2026-08-17">August 17, 2026</time><span>9 minute read</span></div>
+        <h1>Git Is Distributed.<br>Our Workflows Aren’t.</h1>
+        <p class="dek">What a Monday-morning GitHub outage, the acceleration of agentic development, and a version-controlled SQL database reveal about the next boundary of version control.</p>
+      </header>
+
+      <figure class="system-diagram coordination-diagram" aria-labelledby="coordination-caption">
+        <div class="clone-field"><span>Distributed data plane</span><div class="clone-grid"><b>Clone A<small>files + history</small></b><b>Clone B<small>files + history</small></b><b>Clone C<small>files + history</small></b></div><div class="local-commit">Local commits continue</div></div>
+        <i aria-hidden="true">⇄</i>
+        <div class="coordination-hub"><span>Central coordination plane</span><strong>GitHub</strong><div><b>Pull requests</b><b>Issues</b><b>Actions</b><b>APIs</b><b>Webhooks</b><b>Copilot</b></div></div>
+        <figcaption id="coordination-caption">Git distributes repository history. Most teams still centralize review, policy, automation, identity, and machine coordination around one platform.</figcaption>
+      </figure>
+
+      <div class="article-layout">
+        <aside class="article-aside"><span>07</span><p>Field note<br>August 17, 2026<br>Git / GitHub / Dolt</p></aside>
+        <article class="prose article-prose">
+          <p class="lead">The strange thing about a GitHub outage is that Git usually keeps working.</p>
+          <p>On the morning of August 17, GitHub reported an unresolved incident with roughly a 20% error rate across several experiences, including Pull Requests and Issues. At the time I began writing, the status page showed Git Operations as operational, Issues as degraded, and Copilot in a major outage.</p>
+          <p>That distinction is the entire story. My local repository still had its history. I could branch, edit, inspect a diff, and commit. What had stalled was the shared machinery that decides how those commits become organizational fact.</p>
+
+          <h2>Git survived. The workflow did not.</h2>
+          <p>Git is a distributed version-control system. A clone mirrors the repository and its history, so a remote disappearing does not erase the local ability to create versioned work. Git was designed to avoid making the central server the only holder of truth.</p>
+          <p>But the industry built a new center around that distributed core. Pull requests became the review protocol. Issues became planning memory. Actions became execution. Branch protection became policy. Webhooks and APIs became connective tissue. Increasingly, coding agents use those same surfaces as their queue, memory, and control plane.</p>
+          <blockquote>We distributed the commits, then centralized almost every decision made about them.</blockquote>
+          <p>A repository host is no longer just a remote. It is an operating system for software organizations. That makes an outage more revealing than “the website is down.” It exposes which parts of engineering can still move without the coordination service.</p>
+
+          <h2>Tools changed the unit of load</h2>
+          <p>The Reddit thread around the incident quickly blamed AI-generated activity. That is a plausible hypothesis, not a root-cause analysis. GitHub had not published the cause of this incident when this note was written.</p>
+          <p>GitHub has, however, publicly described the broader workload shift. In April 2026 it said agentic development had accelerated sharply since late December 2025, with repository creation, pull-request activity, API use, automation, and large-repository workloads all growing quickly. The company had moved from planning for 10× capacity to designing for 30× the previous scale.</p>
+
+          <figure class="system-diagram agent-load-diagram" id="agent-load-diagram" aria-labelledby="agent-load-caption">
+            <div class="load-source"><span>Work producers</span><b>Human</b><b>Agent</b><b>Automation</b></div>
+            <i aria-hidden="true">→</i>
+            <div class="load-fan"><span>One change fans out</span><div><b>Git storage</b><b>Mergeability</b><b>Search</b><b>Actions</b><b>Notifications</b><b>Permissions</b><b>Webhooks</b><b>APIs</b></div></div>
+            <i aria-hidden="true">→</i>
+            <div class="retry-loop"><span>Under pressure</span><strong>Queues deepen</strong><b>Retries amplify load</b><i>↺</i></div>
+            <figcaption id="agent-load-caption">The important change is not only more code. Every machine-created change can multiply work across the coordination graph.</figcaption>
+          </figure>
+
+          <p>A person may open a handful of pull requests in a day. A tool can create branches, commits, comments, checks, updates, and retries continuously. Each action can touch storage, mergeability, search, notifications, permissions, webhooks, caches, APIs, databases, and background queues. The commit is cheap; the fan-out is not.</p>
+          <p>Version control therefore has a new scaling question: how much speculative work must become globally visible before it is useful?</p>
+
+          <h2>Push the speculative loop back toward the edge</h2>
+          <p>Git already gives source code a strong answer. Work locally. Record cheap snapshots. Explore on branches. Publish when collaboration is needed. Merge when the result deserves to become shared history.</p>
+          <p>Agentic tools should preserve that shape instead of turning every intermediate thought into a remote API call. Local branches can hold experiments. Local queues can absorb retries. Review artifacts can be assembled before publication. Remote coordination should receive fewer, more intentional state transitions.</p>
+          <p>This is not an argument to abandon GitHub. It is an argument to keep GitHub as a coordination boundary rather than treating it as the processor for every private step an automated tool takes.</p>
+
+          <h2>Dolt makes the boundary visible for data</h2>
+          <p>Dolt comes to mind because it asks what happens when Git-style versioning applies to a SQL database instead of files. It stores data in a commit graph, exposes branches, diffs, merges, and history through both a Git-like CLI and SQL, and uses content-addressed Prolly trees whose roots participate in a Merkle DAG.</p>
+          <p>The interface is deliberately familiar: where Git uses <code>git checkout -b my-branch</code>, Dolt offers <code>dolt checkout -b my-branch</code>. In server mode, applications can also select branches and use procedures such as <code>DOLT_CHECKOUT()</code>.</p>
+
+          <figure class="system-diagram dolt-flow" id="dolt-flow" aria-labelledby="dolt-flow-caption">
+            <div class="dolt-step"><span>01 / Transact</span><strong>SQL changes</strong><small>short atomic transaction</small></div><i>→</i>
+            <div class="dolt-step dolt-branch"><span>02 / Isolate</span><strong>Data branch</strong><small>long-lived line of work</small></div><i>→</i>
+            <div class="dolt-step"><span>03 / Version</span><strong>Dolt commit</strong><small>queryable snapshot + lineage</small></div><i>→</i>
+            <div class="dolt-step dolt-settle"><span>04 / Settle</span><strong>Diff + merge</strong><small>shared main history</small></div>
+            <div class="analogy-boundary"><div><span>Coordination buffer</span><p>A branch absorbs many private iterations without making each one a shared event.</p></div><div><span>Architectural payoff</span><p>Review and merge one coherent data change instead of coordinating every intermediate transaction.</p></div></div>
+            <figcaption id="dolt-flow-caption">SQL transactions and Dolt commits are different layers. A transaction changes database state atomically; a Dolt commit records a versioned snapshot.</figcaption>
+          </figure>
+
+          <h2>Borrow the settlement pattern</h2>
+          <p>Off-chain systems offer a useful design move: reserve globally coordinated settlement for state that genuinely needs to be shared. High-frequency, speculative activity can happen in a cheaper isolated context, then publish a smaller and more deliberate state transition.</p>
+          <p>For source code, the local Git branch is the execution context and the reviewed merge is settlement. For data, a Dolt branch can give an application, test run, or coding agent its own writable view. It can accumulate a coherent set of row and schema changes, expose the resulting diff through SQL, and merge the reviewed result into main. The branch becomes a coordination buffer.</p>
+          <p>This enables practical workflows. An agent can generate and validate data without polluting the shared database. CI can inspect proposed schema and row changes as one reviewable diff. A deployment can record the exact data commit it promotes. If an experiment fails, its branch remains inspectable or disposable instead of leaving partially coordinated changes on the shared path.</p>
+          <p>Dolt provides two useful layers for this model. SQL transactions preserve correctness within each short unit of work. Dolt commits record durable points in the longer lineage. Many fast transactions can happen inside one branch before the system asks people and services to coordinate on a merge. The gain is not merely transaction speed; it is less shared contention, fewer coordination round trips, and a better unit for review.</p>
+
+          <h2>Version control is becoming a systems primitive</h2>
+          <p>The next generation of tools will version more than source files. Agent plans, test evidence, generated artifacts, schemas, datasets, and operational decisions all need history, isolation, comparison, and intentional publication.</p>
+          <p>The design lesson from this outage is not “self-host everything” or “replace GitHub with Dolt.” It is to identify the smallest durable unit that can remain local, the smallest shared unit worth publishing, and the services that must degrade without stopping both.</p>
+          <blockquote>Distributed storage is not enough. The workflow must have an offline shape.</blockquote>
+          <p>Git gave us that shape for code decades ago. The pressure created by agentic tools may finally force the rest of the developer platform, and perhaps the data layer, to catch up.</p>
+
+          <div class="article-links"><a href="https://www.githubstatus.com/" target="_blank" rel="noopener noreferrer">GitHub Status ↗</a><a href="https://github.blog/news-insights/company-news/an-update-on-github-availability/" target="_blank" rel="noopener noreferrer">GitHub availability update ↗</a><a href="https://www.reddit.com/r/programming/comments/1vqukkf/nothing_like_a_monday_morning_github_outage/" target="_blank" rel="noopener noreferrer">Outage discussion ↗</a><a href="https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control.html" target="_blank" rel="noopener noreferrer">Git and distributed version control ↗</a><a href="https://www.dolthub.com/docs/architecture/architecture/" target="_blank" rel="noopener noreferrer">Dolt architecture ↗</a><a href="https://www.dolthub.com/docs/sql-reference/version-control/" target="_blank" rel="noopener noreferrer">Dolt version control ↗</a></div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer"><span>Next systems note</span><a href="article-coupang-bluegreen.html">CoupangBlueGreen →</a></footer>
+  </div>
+</body>
+</html>

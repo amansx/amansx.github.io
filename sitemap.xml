@@ -1,22 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
-  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" 
-  xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
-  <url> 
-
-    <loc>http://anixir.com/</loc> 
-    <image:image>
-       <image:loc>http://anixir.com/logo/anixir-dark-og.png</image:loc> 
-    </image:image>
-
-  </url>
-
-  <url> 
-    <loc>http://anixir.com/#contact</loc> 
-  </url>
-
-  <url> 
-    <loc>http://anixir.com/#opensource</loc> 
-  </url>
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://anixir.com/</loc></url>
+  <url><loc>https://anixir.com/work.html</loc></url>
+  <url><loc>https://anixir.com/art.html</loc></url>
+  <url><loc>https://anixir.com/writing.html</loc></url>
+  <url><loc>https://anixir.com/about.html</loc></url>
+  <url><loc>https://anixir.com/article-version-control-after-github.html</loc></url>
+  <url><loc>https://anixir.com/article-coupang-bluegreen.html</loc></url>
+  <url><loc>https://anixir.com/article-peacock-cae.html</loc></url>
+  <url><loc>https://anixir.com/article-solace-go.html</loc></url>
+  <url><loc>https://anixir.com/article-plasma-snakes.html</loc></url>
+  <url><loc>https://anixir.com/article-feedback-form-builder.html</loc></url>
+  <url><loc>https://anixir.com/article-squares-mean-a-world-to-us.html</loc></url>
 </urlset>

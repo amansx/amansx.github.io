@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="About Aman Singh, principal distributed systems engineer, ink artist, and game designer.">
+  <title>Anixir | About</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-frame">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Anixir home"><span class="brand-mark">&lt;/&gt;</span><span class="brand-name">ANIXIR</span></a>
+      <nav class="site-nav" aria-label="Primary navigation"><a href="work.html">Work</a><a href="art.html">Art</a><a href="writing.html">Writing</a><a aria-current="page" href="about.html">About</a></nav>
+      <a class="pill pill-dark" href="#experience">Experience</a>
+    </header>
+
+    <main>
+      <section class="about-hero">
+        <div class="about-portrait"><img src="assets/aman-ink-portrait.png" alt="Ink portrait of Aman Singh"><span>AMAN / 2026</span></div>
+        <div class="about-copy"><p class="kicker">Principal Distributed Systems Engineer / Ink Artist / Game Designer</p><h1>Engineer by trade.<br>Artist by instinct.</h1><p>I’m a principal distributed systems engineer with experience in database design, ranking algorithms, site reliability, and platform engineering. Across 13+ years, I’ve built and operated cloud-native systems in Go across AWS and GCP, with a focus on Kubernetes controllers, observability, and infrastructure automation, alongside parallel practices in visual art and game design.</p><a class="text-link" href="mailto:amanpreet.dev@gmail.com">amanpreet.dev@gmail.com ↗</a></div>
+      </section>
+
+      <section class="about-grid">
+        <div><p class="kicker">Practice</p><h2>Systems</h2><p>Distributed architecture, Go services, messaging, open-source tooling, and durable software.</p></div>
+        <div><p class="kicker">Practice</p><h2>Art</h2><p>Ink drawings, character studies, strange machines, and darker imagined worlds.</p></div>
+        <div><p class="kicker">Practice</p><h2>Games</h2><p>Systems, worlds, interaction, and the design of meaningful player choices.</p></div>
+      </section>
+
+      <section class="experience-section" id="experience">
+        <div class="section-heading"><p class="kicker">Career / Selected record</p><h2>Experience</h2></div>
+        <div class="company-logos company-logos-about" aria-label="Companies Aman has worked with">
+          <span class="company-logo logo-coupang">coupang</span>
+          <span class="company-logo logo-nbc">NBCUniversal</span>
+          <span class="company-logo logo-aws">aws</span>
+          <span class="company-logo logo-bgc">BGC</span>
+          <span class="company-logo logo-bcgdv">BCG DV</span>
+          <span class="company-logo logo-nyse">NYSE</span>
+          <span class="company-logo logo-amex">AMERICAN EXPRESS</span>
+          <span class="company-logo logo-capgemini">Capgemini</span>
+        </div>
+        <div class="experience-row"><time>2025 to 2026</time><div><p class="experience-role">Staff Software Engineer / Coupang</p><h3><a href="article-coupang-bluegreen.html">Multi-cluster reliability and CoupangBlueGreen →</a></h3><ul class="experience-points"><li>Reduced incident rates by approximately 20–35% and MTTR by 25–40% through timeouts, retries, circuit breaking, structured logging, and tracing.</li><li>Built the CoupangBlueGreen Kubernetes controller and CRD to standardize blue-green delivery for Taiwan third-party applications.</li><li>Reconciled Kubernetes resources and live traffic through Caddy’s admin API, establishing a production dependency later expanded toward South Korean data centers.</li></ul></div></div>
+        <div class="experience-row"><time>2024 to 2025</time><div><p class="experience-role">Principal Software Engineer / NBCUniversal</p><h3><a href="article-peacock-cae.html">Content Adaptive Encoding at platform scale →</a></h3><ul class="experience-points"><li>Built a Go Kubernetes operator and CRD families that enabled conversion of the Peacock content library to Content Adaptive Encoding within months.</li><li>Reduced bandwidth and encoding infrastructure costs while improving playback on older devices through adaptive bitrate and VMAF-driven workflows.</li><li>Protected near-complete encodes from avoidable disruption and recovered unfinished FFmpeg chunks after Spot interruption across CPU and GPU capacity.</li></ul></div></div>
+        <div class="experience-row"><time>2022 to 2023</time><div><p class="experience-role">Senior Software Engineer, L5 / AWS</p><h3>Service reliability tied to product outcomes</h3><ul class="experience-points"><li>Introduced service-mesh and autoscaling patterns on Fargate that improved request latency by up to 70%.</li><li>Used tracing, anomaly detection, and signal correlation to reduce signup drop-offs from 45% to 15% and increase engagement by 25%.</li><li>Created CloudWatch dashboards connecting operational signals to business impact, saving teams hours of investigation each week.</li></ul></div></div>
+        <div class="experience-row"><time>2019 to 2022</time><div><p class="experience-role">Senior Software Engineer / BGC Partners</p><h3>Cloud-native delivery and the Solace driver</h3><ul class="experience-points"><li>Introduced Docker and Kubernetes deployment patterns for multi-tenant financial systems.</li><li>Improved real-time message-delivery performance by 200% by open-sourcing a C++ Solace client driver for Go.</li><li>Reduced onboarding time by 50% through standardized development environments and hands-on training for 25 interns and analysts.</li></ul></div></div>
+        <div class="experience-row"><time>2018 to 2019</time><div><p class="experience-role">Senior Software Engineer / BCG Digital Ventures</p><h3>Production visibility for new ventures</h3><ul class="experience-points"><li>Joined as the first senior developer on the innovation team for a venture-backed healthcare startup with a $15M Series A.</li><li>Led the redesign and front-end rearchitecture of the patient mobile experience and clinician portal in React.</li><li>Led the first major A/B test and real-user monitoring program, improving support response time by 40% and conversion by 7.5%.</li></ul></div></div>
+        <div class="experience-row"><time>2016 to 2018</time><div><p class="experience-role">Senior Software Engineer / New York Stock Exchange</p><h3>Lower latency, clearer operations</h3><ul class="experience-points"><li>Improved service-path latency by 40% and SLA response time by 32% by optimizing client-server contracts and critical request paths.</li><li>Modernized legacy systems toward RESTful services with more predictable error handling and operational visibility.</li><li>Reduced UI incidents through client telemetry, stronger session and authentication behavior, and safer rollout practices.</li></ul></div></div>
+        <div class="experience-row"><time>2016</time><div><p class="experience-role">Software Engineer / American Express</p><h3>Modernizing a high-traffic card platform</h3><ul class="experience-points"><li>Led the rearchitecture of a card-shopping platform serving 100,000 monthly requests, improving request latency by 70%.</li><li>Modernized REST integrations alongside build and deployment tooling for a more maintainable delivery path.</li><li>Standardized the build and release pipeline with Node and Webpack, improving repeatability across the team.</li></ul></div></div>
+        <div class="experience-row"><time>2012 to 2016</time><div><p class="experience-role">Software Engineer / Capgemini</p><h3>Enterprise engineering foundations</h3><ul class="experience-points"><li>Delivered enterprise UI and service layers for GE Healthcare, Manulife, MetLife, and Swiss Re.</li><li>Established reusable UI patterns, release checklists, and reliability instrumentation that made delivery more predictable.</li><li>Supported production releases, monitoring, and operational response across multiple client engagements.</li></ul></div></div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><span>New York / Eastern time</span><a href="mailto:amanpreet.dev@gmail.com">Let’s make something →</a></footer>
+  </div>
+</body>
+</html>

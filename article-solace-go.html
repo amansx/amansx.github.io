@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Aman Singh built a C++-to-Go binding for Solace and used it to introduce Go at BGC Partners.">
+  <title>Anixir | Giving Solace a Go Voice</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-frame">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Anixir home"><span class="brand-mark">&lt;/&gt;</span><span class="brand-name">ANIXIR</span></a>
+      <nav class="site-nav" aria-label="Primary navigation"><a href="work.html">Work</a><a href="art.html">Art</a><a aria-current="page" href="writing.html">Writing</a><a href="about.html">About</a></nav>
+      <a class="pill pill-dark" href="about.html#experience">Experience</a>
+    </header>
+
+    <main class="article-page">
+      <a class="back-link" href="writing.html">← All writing</a>
+      <header class="article-header">
+        <div class="article-meta"><span>Systems / Open source</span><time datetime="2020-06-05">June 5, 2020</time><span>5 minute read</span></div>
+        <h1>Giving Solace a Go Voice</h1>
+        <p class="dek">How a C++-to-Go binding made a proven event broker feel native to Go and helped introduce the language at BGC Partners.</p>
+      </header>
+
+      <div class="event-bridge" aria-label="The solace-go binding architecture from Go application to Solace event broker">
+        <div><span>01</span><strong>Go service</strong><small>channels + types</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>02</span><strong>cgo</strong><small>callback boundary</small></div>
+        <i aria-hidden="true">→</i>
+        <div><span>03</span><strong>C++ wrap</strong><small>native client</small></div>
+        <i aria-hidden="true">→</i>
+        <div class="event-bridge-core"><span>04</span><strong>Solace</strong><small>event broker</small></div>
+      </div>
+
+      <div class="article-layout">
+        <aside class="article-aside"><span>04</span><p>Started: Jun 2020<br>Languages: Go / C / C++<br>Context: BGC Partners</p></aside>
+        <article class="prose article-prose">
+          <p class="lead">Solace is the kind of infrastructure that becomes more interesting the closer you get to it.</p>
+          <p>At its center is an event broker: publishers send events without knowing who will consume them, subscribers describe what they care about, and the broker handles routing in between. Solace supports both topic-based publish/subscribe and queue-based point-to-point messaging. It can favor very high rates and very low latency with Direct messaging, or durability and acknowledgements with Guaranteed messaging.</p>
+          <p>That combination is especially compelling in financial systems. A price update and a workflow command do not necessarily need the same delivery contract, but they can still move across the same messaging backbone.</p>
+
+          <h2>The missing ergonomic layer</h2>
+          <p>At BGC Partners, I wanted to bring Go into a technology stack that already depended on Solace. The broker was not the experiment. Go was.</p>
+          <p>The lowest-risk route was to preserve the mature native client and build an interface that made its capabilities natural to use from Go. That became <code>solace-go</code>, first committed on June 5, 2020.</p>
+          <pre><code>Go application
+    ↓ channels, structs, methods
+Go / cgo binding
+    ↓ C-compatible callback boundary
+C++ wrapper
+    ↓ native calls
+Solace C client → PubSub+ event broker</code></pre>
+          <p>The C++ wrapper links against Solace’s C client. A small C boundary exposes stable functions and callback structures. cgo crosses that boundary, and the Go package turns native callbacks into typed events delivered through buffered channels.</p>
+
+          <h2>Making callbacks feel like Go</h2>
+          <p>The native client reports messages, connection changes, errors, and publisher acknowledgements through callbacks. The binding maps each family into a Go type and channel:</p>
+          <ul><li><code>MessageEvent</code> carries destination, payload, message ID, correlation ID, reply-to data, redelivery state, and user properties;</li><li><code>ConnectionEvent</code> reports up, down, reconnecting, and reconnected states;</li><li><code>PublisherEvent</code> reports acknowledgements and rejections;</li><li><code>ErrorEvent</code> preserves native return codes and broker responses.</li></ul>
+          <p>The public API lets applications register ordinary Go callbacks while goroutines drain those channels. A buffer of 5,000 events creates a deliberate pressure boundary between the native callback thread and application work.</p>
+          <p>This was not about hiding Solace. Direct and Guaranteed delivery, topic subscriptions, queue bindings, manual acknowledgements, correlation data, and binary payloads remain visible because those semantics matter. The wrapper removes language friction without erasing the messaging model.</p>
+
+          <h2>Adoption through a useful bridge</h2>
+          <p>Introducing a language into a production stack is rarely won by a syntax comparison. It is won by making the new language useful beside the systems people already trust.</p>
+          <p>The driver gave Go applications access to the existing Solace backbone without asking the organization to replace that backbone. It also provided examples, Docker-based local setup, and builds for Linux, macOS, and Windows. The repository later received outside fixes and compression support, the healthy consequence of publishing a real internal need as open source.</p>
+          <p>At BGC, this work helped establish Go as a practical option for real-time services. The outcome recorded from the project was a 200% improvement in real-time message-delivery performance. More importantly, the driver lowered the cost of the next Go service: the messaging bridge already existed.</p>
+          <blockquote>A compatibility layer can be an organizational tool. Build the bridge to the infrastructure that already matters, and a new language stops looking like a rewrite.</blockquote>
+
+          <div class="article-links"><a href="https://github.com/amansx/solace-go" target="_blank" rel="noopener noreferrer">View repository ↗</a><a href="https://docs.solace.com/Messaging/messaging-overview.htm" target="_blank" rel="noopener noreferrer">Solace messaging guide ↗</a></div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer"><span>Next archive note</span><a href="article-plasma-snakes.html">Plasma Snakes →</a></footer>
+  </div>
+</body>
+</html>

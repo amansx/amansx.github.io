@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Aman Singh built a Go Kubernetes operator to coordinate Peacock Content Adaptive Encoding across CPU, GPU, and Spot capacity.">
+  <title>Anixir | Encoding Peacock at Library Scale</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-frame">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Anixir home"><span class="brand-mark">&lt;/&gt;</span><span class="brand-name">ANIXIR</span></a>
+      <nav class="site-nav" aria-label="Primary navigation"><a href="work.html">Work</a><a href="art.html">Art</a><a aria-current="page" href="writing.html">Writing</a><a href="about.html">About</a></nav>
+      <a class="pill pill-dark" href="about.html#experience">Experience</a>
+    </header>
+
+    <main class="article-page">
+      <a class="back-link" href="writing.html">← All writing</a>
+      <header class="article-header">
+        <div class="article-meta"><span>Systems / Media infrastructure</span><time datetime="2025-05">May 2025</time><span>9 minute read</span></div>
+        <h1>Encoding Peacock at Library Scale</h1>
+        <p class="dek">How a Go Kubernetes operator coordinated content-adaptive video encoding across CPU, GPU, and interruptible capacity without throwing away expensive progress.</p>
+      </header>
+
+      <figure class="system-diagram cae-pipeline" aria-labelledby="cae-pipeline-caption">
+        <div class="diagram-stage"><span>01 / Input</span><strong>Source media</strong><small>mezzanine asset</small></div>
+        <i aria-hidden="true">→</i>
+        <div class="diagram-stage diagram-stage-control"><span>02 / Control</span><strong>CAE resources</strong><small>variants + state</small></div>
+        <i aria-hidden="true">→</i>
+        <div class="diagram-stage"><span>03 / Plan</span><strong>Chunk work</strong><small>concurrent units</small></div>
+        <i aria-hidden="true">→</i>
+        <div class="diagram-worker-pool"><span>04 / Compute</span><div><strong>CPU</strong><strong>GPU</strong><strong>Spot</strong></div><small>taints + tolerations</small></div>
+        <i aria-hidden="true">→</i>
+        <div class="diagram-stage diagram-stage-output"><span>05 / Quality</span><strong>VMAF + output</strong><small>perceptual target</small></div>
+        <figcaption id="cae-pipeline-caption">The conceptual encoding path. Internal resource names and policy fields are intentionally generalized.</figcaption>
+      </figure>
+
+      <div class="article-layout">
+        <aside class="article-aside"><span>05</span><p>NBCUniversal / Peacock<br>Oct 2024 to May 2025<br>Go / Kubernetes / FFmpeg</p></aside>
+        <article class="prose article-prose">
+          <p class="lead">The expensive way to encode a video library is to treat every second of every title as equally difficult.</p>
+          <p>A quiet dialogue scene, a burst of smoke, dense film grain, and fast action do not create the same compression problem. Give all of them the same bitrate and you either spend too much on simple frames or fail to preserve quality in the complex ones.</p>
+          <p>At NBCUniversal, I built a Go Kubernetes operator and controller layer for Peacock’s Content Adaptive Encoding platform. The platform varied bitrate according to content complexity, evaluated perceived output quality with VMAF, and helped convert the Peacock content library to the new encoding format within months.</p>
+          <p>The media algorithm was only half the system. The other half was making long-running FFmpeg work distributable, observable, and recoverable across CPU, GPU, and interruptible AWS capacity.</p>
+
+          <h2>What content-adaptive encoding changes</h2>
+          <p>Traditional fixed encoding ladders apply broadly chosen bitrate targets. Content-adaptive encoding asks a more useful question: what is the least data this particular material needs to retain the intended perceptual quality?</p>
+          <p>VMAF provided the quality signal. It compares an encoded result with its source and estimates how a viewer may perceive the difference. The system could use that feedback to avoid spending the same bitrate on a simple scene that a visually complex scene genuinely needed.</p>
+          <p>That matters twice. Smaller viable encodes reduce delivery bandwidth and storage or processing costs. They can also make more of a catalog playable on older or constrained devices. Instead of making an entire title consistently too heavy, the system can preserve a lower operating bitrate and accept that the most difficult moments may still stress the device.</p>
+
+          <h2>Make the encoding lifecycle declarative</h2>
+          <p>The project needed more than a queue of shell commands. It needed a durable description of what should be encoded, which variant was intended, what work had completed, and what should happen after a worker disappeared.</p>
+          <p>I built the operator and custom controllers in Go using existing Kubernetes Go libraries. CRD families represented CAE encode variants and their media and encoding state. The reconcilers observed that state and moved the encoding lifecycle toward its declared outcome.</p>
+          <blockquote>This was a domain-specific control plane built with Kubernetes’ extension model, not a replacement scheduler or a new API server.</blockquote>
+          <p>The exact internal Kind and field names are intentionally not reproduced here.</p>
+
+          <h2>Split the expensive unit of work</h2>
+          <p>A single monolithic encode is fragile on interruptible infrastructure. If an instance disappears near the end, the cheapest compute can become the most expensive choice because accumulated work vanishes with it.</p>
+          <p>The platform divided media into smaller FFmpeg chunks that could run concurrently across CPU- and GPU-based nodes. Taints and tolerations constrained specialized work to suitable capacity. The same machinery supported full-library migration runs and narrower task-based runs.</p>
+          <p>Chunking changed the failure unit. Completed chunks remained completed. When Spot capacity was reclaimed, controllers could identify and reassign unfinished work instead of restarting an entire long-running encode.</p>
+
+          <figure class="system-diagram recovery-diagram" aria-labelledby="recovery-caption">
+            <div class="recovery-control"><span>Control plane</span><div class="controller-replicas"><b>Reconciler A</b><b>Reconciler B</b><b>Reconciler C</b></div><div class="coordination-line"><strong>Kubernetes Lease</strong><small>leader + work ownership</small></div><div class="coordination-line"><strong>Database lock</strong><small>idempotent lifecycle decision</small></div></div>
+            <div class="recovery-work"><span>Work plane</span><div class="progress-track"><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="progress-labels"><small>completed chunks</small><small>unfinished</small></div><div class="interruption-path"><b>Spot interruption</b><i>→</i><b>requeue unfinished chunks</b><i>→</i><b>resume on valid capacity</b></div></div>
+            <figcaption id="recovery-caption">Coordination prevents duplicate ownership; persisted chunk progress limits the blast radius of an interrupted worker.</figcaption>
+          </figure>
+
+          <h2>Protect progress according to its value</h2>
+          <p>Not all running work had the same replacement cost. An encode that had just begun was comparatively cheap to restart. One that was nearly complete represented substantial accumulated compute.</p>
+          <p>The controllers reconciled PodDisruptionBudgets from encode progress. Early-stage work could remain more available for voluntary movement; near-complete work received stronger protection from avoidable voluntary disruption.</p>
+          <p>A PodDisruptionBudget is not a shield against an involuntary Spot termination. The recovery mechanism for that failure was chunk-level state and reassignment. The progress-aware budget and the recoverable work model solved different halves of the reliability problem.</p>
+
+          <div class="policy-comparison" aria-label="How the platform treated voluntary disruptions and Spot interruptions">
+            <div><span>Voluntary disruption</span><strong>Progress-aware budget</strong><p>Avoid needless loss near completion.</p></div>
+            <div><span>Spot interruption</span><strong>Persisted chunk state</strong><p>Requeue only unfinished work.</p></div>
+          </div>
+
+          <h2>Keep multiple reconcilers from doing the same thing</h2>
+          <p>Controllers are retry machines. That is useful until two reconcilers believe they both own the same expensive lifecycle transition.</p>
+          <p>The platform used Kubernetes Leases for leader election and work ownership. A database-backed lock guarded lifecycle decisions that also needed application-level idempotency. Together, they provided two related guarantees: one active coordinator for a responsibility, and safe repeated decisions when retries or failover occurred.</p>
+          <p>This distinction matters. A Lease answers “who may act now?” The database-backed guard answers “has this transition already been committed?” A distributed media pipeline needs both questions answered clearly.</p>
+
+          <h2>The result</h2>
+          <p>The platform helped move the Peacock library to Content Adaptive Encoding within months. Content-aware bitrate selection substantially reduced delivery bandwidth, while Spot execution reduced encoding infrastructure cost. Lower viable bitrates also made more content workable on older devices.</p>
+          <p>There are no public asset counts, exact savings percentages, concurrency figures, or internal resource names attached to this account. The engineering result does not need invented precision: a domain-specific Kubernetes control plane coordinated a library-scale migration while balancing quality, cost, placement, and the value of work already completed.</p>
+          <blockquote>The durable lesson was to model progress as a first-class system property.</blockquote>
+          <p>Once the controller knew what had finished, what it was worth, and where it could run, cheap compute became useful without making interruption catastrophic.</p>
+
+          <div class="article-links"><a href="https://github.com/Netflix/vmaf/" target="_blank" rel="noopener noreferrer">VMAF project ↗</a><a href="https://kubernetes.io/docs/concepts/workloads/pods/disruptions/" target="_blank" rel="noopener noreferrer">Disruption budgets ↗</a><a href="https://kubernetes.io/docs/concepts/architecture/leases/" target="_blank" rel="noopener noreferrer">Kubernetes Leases ↗</a><a href="https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-interruptions.html" target="_blank" rel="noopener noreferrer">EC2 Spot interruptions ↗</a></div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer"><span>Next systems note</span><a href="article-solace-go.html">Giving Solace a Go Voice →</a></footer>
+  </div>
+</body>
+</html>
