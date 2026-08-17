@@ -1,6 +1,6 @@
 ---
 title: "Squares Mean a World to Us"
-description: "How a one-word JSFoo prompt became a procedural Babylon.js city and won Wingify's 2014 JavaScript competition."
+description: "How a one-word JSFoo brief became a procedural Babylon.js city and won Wingify's 2014 JavaScript competition."
 date: 2014-09-23
 category: "Archive / Creative code"
 read_time: "8 minute read"
