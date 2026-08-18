@@ -9,7 +9,7 @@
   <meta property="og:image" content="https://anixir.com/assets/thumb-coupang-bluegreen.svg">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/styles.css?v=20260817-4">
+  <link rel="stylesheet" href="/styles.css?v=20260817-5">
 </head>
 <body>
   <div class="site-frame">
@@ -53,7 +53,7 @@
 
           <figure class="system-diagram rollout-machine" aria-labelledby="rollout-machine-caption">
             <div class="rollout-track"><div><span>01</span><strong>Declare</strong><small>candidate</small></div><i>→</i><div><span>02</span><strong>Create</strong><small>versioned stack</small></div><i>→</i><div><span>03</span><strong>Gate</strong><small>readiness</small></div><i>→</i><div><span>04</span><strong>Shift</strong><small>traffic</small></div><i>→</i><div><span>05</span><strong>Promote</strong><small>retain previous</small></div><i>→</i><div><span>06</span><strong>Clean</strong><small>retired stack</small></div></div>
-            <div class="rollback-track"><span>Failure after traffic begins</span><i>↙</i><strong>Restore previous route</strong><i>→</i><strong>Converge on active stack</strong></div>
+            <div class="rollback-track"><span>Failure after traffic begins</span><i>→</i><strong>Restore previous route</strong><i>→</i><strong>Converge on active stack</strong></div>
             <figcaption id="rollout-machine-caption">The CRD made rollout state explicit; failure had a defined path back to the previous route.</figcaption>
           </figure>
 
