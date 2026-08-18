@@ -6,7 +6,7 @@
   <meta name="description" content="Anixir, the engineering work, art, games, and writing of Aman Singh, Principal Distributed Systems Engineer.">
   <title>Anixir | Aman Singh - Principal Distributed Systems Engineer</title>
   <link rel="icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/styles.css?v=20260818-4">
+  <link rel="stylesheet" href="/styles.css?v=20260818-5">
 </head>
 <body class="page-home">
   <div class="site-frame">
@@ -84,9 +84,30 @@
         </div>
         <a class="featured-project" href="/writing/solace-go/">
           <div class="schematic" aria-hidden="true">
-            <div class="schematic-core"><span></span></div>
-            <span class="measure measure-a">SYSTEM / 01</span>
-            <span class="measure measure-b">INPUT → OUTPUT</span>
+            <svg class="system-routes" viewBox="0 0 640 390" preserveAspectRatio="none">
+              <defs>
+                <filter id="signal-glow" x="-400%" y="-400%" width="800%" height="800%"><feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter>
+              </defs>
+              <path class="system-route" d="M108 99 C190 94 206 158 320 195"></path>
+              <path class="system-route" d="M532 99 C450 94 434 158 320 195"></path>
+              <path class="system-route system-route-active" d="M112 294 C190 294 220 228 320 195"></path>
+              <path class="system-route system-route-active" d="M320 195 C420 228 450 294 528 294"></path>
+              <circle class="system-packet" r="4"><animateMotion dur="3.8s" repeatCount="indefinite" path="M108 99 C190 94 206 158 320 195"></animateMotion></circle>
+              <circle class="system-packet" r="4"><animateMotion dur="4.6s" begin="-1.8s" repeatCount="indefinite" path="M532 99 C450 94 434 158 320 195"></animateMotion></circle>
+              <circle class="system-packet system-packet-hot" r="5"><animateMotion dur="3.2s" begin="-.9s" repeatCount="indefinite" path="M112 294 C190 294 220 228 320 195 C420 228 450 294 528 294"></animateMotion></circle>
+            </svg>
+            <div class="orbit-shell orbit-shell-a"><i></i><b></b></div>
+            <div class="orbit-shell orbit-shell-b"><i></i><b></b></div>
+            <div class="system-planet">
+              <span class="planet-ring"></span>
+              <span class="planet-label"><small>Event</small><strong>SOLACE</strong><em>Broker</em></span>
+            </div>
+            <div class="system-node node-go"><i></i><strong>Go service</strong><small>typed channels</small></div>
+            <div class="system-node node-cpp"><i></i><strong>C++ client</strong><small>native API</small></div>
+            <div class="system-node node-topics"><i></i><strong>Topics</strong><small>routing fabric</small></div>
+            <div class="system-node node-stream"><i></i><strong>Pub / Sub</strong><small>live messages</small></div>
+            <span class="measure measure-a">EVENT MESH / 01</span>
+            <span class="measure measure-b">LINK STATE / LIVE</span>
           </div>
           <div class="project-copy">
             <div class="project-meta"><span>Featured repository</span><span>Open source</span></div>
