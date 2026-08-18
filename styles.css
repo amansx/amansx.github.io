@@ -487,7 +487,7 @@ img { display: block; max-width: 100%; }
 .about-grid h2 { margin: 75px 0 18px; font-size: 38px; letter-spacing: -.04em; }
 .about-grid p:last-child { color: var(--muted); font: 13px/1.7 var(--mono); }
 .experience-section { padding: 100px clamp(28px, 6vw, 92px); scroll-margin-top: 40px; }
-.company-logos-about { margin: 0 0 70px 210px; padding: 28px 0 44px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.company-logos-about { margin: 0 0 70px 210px; padding: 28px 0 44px; border-top: 1px solid var(--line); }
 .experience-row { display: grid; grid-template-columns: 180px 1fr; gap: 30px; padding: 38px 0; border-top: 1px solid var(--line); }
 .experience-row > span, .experience-row > time { color: var(--muted); font: 10px/1.4 var(--mono); text-transform: uppercase; }
 .experience-role { margin: 0 0 12px !important; color: var(--red-dark) !important; font: 700 10px/1.4 var(--mono) !important; letter-spacing: .04em; text-transform: uppercase; }
