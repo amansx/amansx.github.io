@@ -195,8 +195,11 @@ img { display: block; max-width: 100%; }
 .ink-study::before { inset: 14% 28% 8% 24%; border-radius: 56% 44% 20% 80%; transform: rotate(-18deg); }
 .ink-study::after { inset: 31% 13% 25% 13%; border-color: var(--red); border-radius: 50%; }
 .ink-study span { top: 9%; bottom: -12%; left: 49%; width: 1px; border: 0; background: var(--ink); transform: rotate(18deg); }
-.discipline-writing { color: var(--paper); background: var(--ink); }
-.discipline-writing .kicker, .discipline-writing .text-link { color: #ff7669; }
+.discipline-art { color: var(--paper); background: var(--ink); }
+.discipline-art .kicker, .discipline-art .text-link { color: #ff7669; }
+.discipline-art .ink-study { border-color: rgba(247, 243, 235, .24); }
+.discipline-art .ink-study::before { border-color: var(--paper); }
+.discipline-art .ink-study span { background: var(--paper); }
 .discipline-writing blockquote { max-width: 600px; margin: 120px 0 68px; font: italic clamp(32px, 3.7vw, 58px)/1.15 var(--serif); }
 
 .site-footer { display: flex; min-height: 120px; align-items: center; justify-content: space-between; gap: 30px; padding: 30px clamp(28px, 6vw, 92px); border-top: 1px solid var(--line); color: var(--muted); font: 11px/1.4 var(--mono); text-transform: uppercase; }
