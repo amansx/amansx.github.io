@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:i="&amp;ns_ai;"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg8"
+   version="1.1"
+>
+  <defs
+     id="defs2" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(-24.568453,-48.669643)"
+     id="layer1">
+    <switch
+       transform="matrix(0.26458333,0,0,0.26458333,-1.6252965,21.946727)"
+       id="switch823">
+	<foreignObject
+   requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/"
+   x="0"
+   y="0"
+   width="1"
+   height="1">
+
+	</foreignObject>
+
+	<g
+   i:extraneous="self"
+   id="g821">
+		<polygon
+   style="fill:#ffffff"
+   class="st0"
+   points="99,101 347.14899,101 599,101 599,350.97501 599,601 350.49701,601 99,601 99,348.51501 "
+   id="polygon817" />
+
+		<path
+   style="fill:#006fcf"
+   class="st1"
+   d="m 599,601 v -79.22705 h -60.32092 l -31.05609,-34.33997 -31.21296,34.33997 H 277.52704 V 361.72699 h -64.19103 l 79.622,-180.19299 h 76.78796 l 27.41107,61.73101 V 181.534 h 95.04895 l 16.50306,46.518 16.61096,-46.518 H 599 V 101 H 99 V 601 Z M 548.84003,501.73499 H 599 L 532.64697,431.371 599,361.80701 H 549.638 L 508.66101,406.58499 468.078,361.80701 h -50.17199 l 65.96502,69.96399 -65.96502,69.96399 h 48.776 l 41.17798,-45.17695 z m 11.73498,-70.305 L 599,472.30899 V 390.892 Z m -223.62701,37.922 v -21.78998 h 78.95703 V 415.97797 H 336.948 v -21.78696 h 80.95502 v -32.384 H 298.76599 v 139.92798 h 119.13703 v -32.383 z M 561.21802,341.50101 H 599 V 201.573 H 540.229 L 508.84399,288.72601 477.66101,201.573 h -59.768 V 341.50101 H 455.672 V 243.552 l 35.98297,97.94901 h 33.58099 l 35.98206,-98.151 z m -186.30298,0 h 42.97797 L 356.12799,201.573 h -49.17596 l -61.77101,139.92801 h 41.97901 l 11.59595,-27.98502 h 64.36505 z m -24.98505,-59.37 h -37.98297 l 18.99201,-45.77603 z"
+   id="path819" />
+
+	</g>
+
+</switch>
+  </g>
+  <style
+     type="text/css"
+     id="style815">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#006FCF;}
+</style>
+</svg>
