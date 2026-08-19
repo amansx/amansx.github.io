@@ -603,7 +603,7 @@ img { display: block; max-width: 100%; }
   .section { padding: 70px 24px; }
   .section-heading { gap: 14px; }
   .selected-work .section-heading { grid-template-areas: "title" "label"; grid-template-columns: 1fr; gap: 14px; }
-  .section-action { margin: 26px auto 0; }
+  .section-action { margin: 26px 0 0 auto; }
   .section-heading .text-link { margin-top: 12px; }
   .featured-project { grid-template-columns: 1fr; }
   .schematic { min-height: 320px; border-right: 0; border-bottom: 1px solid var(--line); }
