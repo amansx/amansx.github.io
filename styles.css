@@ -166,6 +166,10 @@ img { display: block; max-width: 100%; }
 .section-heading { display: grid; grid-template-columns: 180px 1fr auto; align-items: end; gap: 30px; margin-bottom: 42px; }
 .section-heading h2 { margin: 0; font-size: clamp(44px, 5vw, 76px); line-height: .95; letter-spacing: -.055em; }
 .section-heading > .pill { justify-self: end; }
+.selected-work .section-heading { grid-template-areas: "title action" "label label"; grid-template-columns: 1fr auto; align-items: center; gap: 18px 30px; }
+.selected-work .section-heading h2 { grid-area: title; }
+.selected-work .section-heading > .pill { grid-area: action; }
+.selected-work .section-heading > .kicker { grid-area: label; }
 .text-link { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 0; color: var(--red-dark); font: 700 12px/1.4 var(--mono); letter-spacing: .03em; text-decoration: none; }
 
 .featured-project { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 390px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; }
@@ -568,9 +572,9 @@ img { display: block; max-width: 100%; }
   .social-rail { display: none; }
   .hero-copy, .hero-intro { grid-column: 1; width: 100%; margin: 0; padding-left: 0; justify-self: start; text-align: left; }
   .hero h1 { margin-left: 0; text-align: left; }
-  .mobile-socials { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start; gap: 8px 14px; margin-top: 24px; }
+  .mobile-socials { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px clamp(7px, 1vw, 14px); width: 100%; margin-top: 24px; }
   .mobile-socials a { display: inline-flex; min-height: 44px; align-items: center; padding: 8px; color: var(--muted); font: 11px/1 var(--mono); text-decoration: none; }
-  .mobile-socials span { width: 30px; height: 1px; background: var(--line); }
+  .mobile-socials span { width: clamp(14px, 2vw, 30px); height: 1px; background: var(--line); }
   .portrait-composition { grid-column: 2; grid-row: 1 / span 2; }
   .portrait-composition { min-height: 540px; }
   .about-copy h1 { line-height: 1.06; letter-spacing: -.055em; }
@@ -598,6 +602,7 @@ img { display: block; max-width: 100%; }
   .annotation-b { right: 18px; text-align: right; }
   .section { padding: 70px 24px; }
   .section-heading { gap: 14px; }
+  .selected-work .section-heading { grid-template-areas: "title" "action" "label"; grid-template-columns: 1fr; gap: 14px; }
   .section-heading .text-link { margin-top: 12px; }
   .featured-project { grid-template-columns: 1fr; }
   .schematic { min-height: 320px; border-right: 0; border-bottom: 1px solid var(--line); }
