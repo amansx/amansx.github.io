@@ -166,10 +166,10 @@ img { display: block; max-width: 100%; }
 .section-heading { display: grid; grid-template-columns: 180px 1fr auto; align-items: end; gap: 30px; margin-bottom: 42px; }
 .section-heading h2 { margin: 0; font-size: clamp(44px, 5vw, 76px); line-height: .95; letter-spacing: -.055em; }
 .section-heading > .pill { justify-self: end; }
-.selected-work .section-heading { grid-template-areas: "title action" "label label"; grid-template-columns: 1fr auto; align-items: center; gap: 18px 30px; }
+.selected-work .section-heading { grid-template-areas: "title" "label"; grid-template-columns: 1fr; align-items: start; gap: 18px; }
 .selected-work .section-heading h2 { grid-area: title; }
-.selected-work .section-heading > .pill { grid-area: action; }
 .selected-work .section-heading > .kicker { grid-area: label; }
+.section-action { width: max-content; margin: 32px 0 0 auto; }
 .text-link { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 0; color: var(--red-dark); font: 700 12px/1.4 var(--mono); letter-spacing: .03em; text-decoration: none; }
 
 .featured-project { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 390px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; }
@@ -602,7 +602,8 @@ img { display: block; max-width: 100%; }
   .annotation-b { right: 18px; text-align: right; }
   .section { padding: 70px 24px; }
   .section-heading { gap: 14px; }
-  .selected-work .section-heading { grid-template-areas: "title" "action" "label"; grid-template-columns: 1fr; gap: 14px; }
+  .selected-work .section-heading { grid-template-areas: "title" "label"; grid-template-columns: 1fr; gap: 14px; }
+  .section-action { margin: 26px auto 0; }
   .section-heading .text-link { margin-top: 12px; }
   .featured-project { grid-template-columns: 1fr; }
   .schematic { min-height: 320px; border-right: 0; border-bottom: 1px solid var(--line); }
