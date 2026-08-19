@@ -169,7 +169,7 @@ img { display: block; max-width: 100%; }
 .selected-work .section-heading { grid-template-areas: "title" "label"; grid-template-columns: 1fr; align-items: start; gap: 18px; }
 .selected-work .section-heading h2 { grid-area: title; }
 .selected-work .section-heading > .kicker { grid-area: label; }
-.section-action { width: max-content; margin: 32px 0 0 auto; }
+.section-action { display: flex; width: max-content; margin: 32px 0 0 auto; }
 .text-link { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 0; color: var(--red-dark); font: 700 12px/1.4 var(--mono); letter-spacing: .03em; text-decoration: none; }
 
 .featured-project { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 390px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; }
