@@ -109,6 +109,14 @@ A serious research tool should isolate work from training by default, pin model 
 
 > A result can be public while the power that produced it remains private. Science needs both the answer and a path others are allowed to walk.
 
+## Try Smokey McFlame Face
+
+A 64 x 64 fluid grid turns Stam's method into a bright nebula plume. It rises from a circular core, follows the pointer, and curls through a slowly moving field of stars.
+
+<iframe src="/experiments/stable-fluids/smokey-mcflame-face/" title="Smokey McFlame Face interactive fluid simulation" loading="lazy"></iframe>
+
+Pure JavaScript and canvas. Start the simulation, then move a mouse, pen, or finger through the field.
+
 [Clay Millennium Prize Problems](https://www.claymath.org/millennium-problems/)
 
 [The X post alleging theft](https://x.com/ns123abc/status/2097423705240428932?s=20)

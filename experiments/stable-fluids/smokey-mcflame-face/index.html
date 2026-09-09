@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A small pure JavaScript Stable Fluids nebula study inspired by Jos Stam and hand-drawn wave animation.">
+  <title>Anixir | Smokey McFlame Face</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/experiments/stable-fluids/smokey-mcflame-face/smoke.css">
+</head>
+<body>
+  <main class="smoke-lab">
+    <header class="lab-header">
+      <div>
+        <span class="eyebrow">ANX / FLUID STUDY 01</span>
+        <h1>Smokey McFlame Face</h1>
+        <p>Start the simulation, then move your pointer. A bright nebula plume will curl upward and follow.</p>
+      </div>
+    </header>
+
+    <section class="stage" aria-label="Interactive smoke simulation">
+      <canvas id="smoke" width="960" height="540" aria-label="A colorful nebula smoke simulation that follows the pointer">
+        Your browser needs canvas support to run this fluid simulation.
+      </canvas>
+      <button id="play" type="button" aria-pressed="false">Start simulation</button>
+      <div class="stage-note"><span id="palette">Electric dream</span><span>64 x 64 fluid grid</span></div>
+    </section>
+
+    <footer class="lab-footer">
+      <div class="music-player" aria-label="Smokey soundtrack">
+        <div class="track-buttons" aria-label="Choose a track">
+          <button class="is-active" type="button" data-track="0">Missing Budapest</button>
+          <button type="button" data-track="1">Marble Blue</button>
+          <button type="button" data-track="2">Made In Moonlight</button>
+          <button type="button" data-track="3">Medieval Times</button>
+          <button type="button" data-track="4">TranceMixer Budapest Live</button>
+        </div>
+        <div class="volume-control">
+          <label for="volume"><span>Level</span><input id="volume" type="range" min="0" max="1" step="0.01" value="0.72"></label>
+          <button id="sound" type="button" aria-pressed="false">Mute</button>
+        </div>
+      </div>
+      <audio id="deck-a" preload="metadata"></audio>
+      <audio id="deck-b" preload="metadata"></audio>
+    </footer>
+  </main>
+  <script src="/experiments/stable-fluids/smokey-mcflame-face/smoke.js"></script>
+</body>
+</html>

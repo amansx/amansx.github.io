@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title description">
+  <title id="title">When Smoke Learned to Behave</title>
+  <desc id="description">A bright fluid plume rises from a colorful nebula core through a field of stars.</desc>
+  <defs>
+    <radialGradient id="core">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset=".18" stop-color="#ffe057"/>
+      <stop offset=".52" stop-color="#ff57cf"/>
+      <stop offset="1" stop-color="#7765ff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="smoke" x1="0" y1="1" x2=".45" y2="0">
+      <stop offset="0" stop-color="#ffe057"/>
+      <stop offset=".44" stop-color="#ff57cf"/>
+      <stop offset="1" stop-color="#77c5ff"/>
+    </linearGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="18"/></filter>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#d2e6ff" stroke-opacity=".08"/></pattern>
+  </defs>
+  <rect width="1280" height="720" fill="#050811"/>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <g fill="#d2e6ff">
+    <circle cx="84" cy="98" r="2"/><circle cx="198" cy="174" r="3"/><circle cx="310" cy="74" r="2"/><circle cx="428" cy="132" r="2"/><circle cx="564" cy="60" r="3"/><circle cx="703" cy="117" r="2"/><circle cx="827" cy="66" r="2"/><circle cx="955" cy="148" r="3"/><circle cx="1110" cy="79" r="2"/><circle cx="1201" cy="188" r="2"/>
+    <circle cx="130" cy="344" r="2"/><circle cx="1152" cy="330" r="3"/><circle cx="1034" cy="254" r="2"/><circle cx="238" cy="278" r="2"/><circle cx="905" cy="382" r="2"/>
+  </g>
+  <path d="M644 566C518 486 526 400 650 360C778 318 784 226 672 142C838 222 886 338 788 414C708 476 748 526 690 574Z" fill="url(#smoke)" opacity=".72" filter="url(#blur)"/>
+  <path d="M644 566C546 493 563 421 661 380C754 341 780 268 703 184C813 259 823 351 748 410C679 464 726 519 682 570Z" fill="url(#smoke)" opacity=".9"/>
+  <circle cx="650" cy="566" r="118" fill="url(#core)"/>
+  <circle cx="650" cy="566" r="42" fill="url(#core)"/>
+  <text x="64" y="78" fill="#f05245" font-family="monospace" font-size="17" font-weight="700" letter-spacing="3">ANIXIR / FIELD NOTE 09 / 2010</text>
+  <text x="64" y="608" fill="#f5f1e8" font-family="Arial, Helvetica, sans-serif" font-size="62" font-weight="800" letter-spacing="-3">WHEN SMOKE LEARNED TO BEHAVE</text>
+  <text x="68" y="652" fill="#aeb7c6" font-family="monospace" font-size="16" letter-spacing="2">ADD / DIFFUSE / ADVECT / PROJECT</text>
+</svg>
