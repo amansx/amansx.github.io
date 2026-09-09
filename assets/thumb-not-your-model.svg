@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title description">
+  <title id="title">Did AI Steal the Proof?</title>
+  <desc id="description">Fluid streamlines move from an open research grid into an opaque model boundary.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#1e1e1c" stroke-opacity=".13"/></pattern>
+    <filter id="rough"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="2"/></filter>
+  </defs>
+  <rect width="1280" height="720" fill="#f3efe6"/>
+  <rect x="32" y="32" width="1216" height="656" fill="url(#grid)" stroke="#1e1e1c"/>
+  <text x="72" y="82" fill="#c93a31" font-family="monospace" font-size="17" font-weight="700" letter-spacing="3">ANIXIR / FIELD NOTE 08</text>
+  <g fill="none" stroke="#1e1e1c" stroke-width="3" filter="url(#rough)">
+    <path d="M70 180C208 104 314 112 414 207S572 294 682 216"/>
+    <path d="M70 232C190 171 307 172 395 242S556 335 682 260"/>
+    <path d="M70 289C201 245 294 244 391 292S551 360 682 310"/>
+    <path d="M70 347C187 329 302 316 406 343S566 383 682 362"/>
+    <path d="M70 407C207 428 305 392 410 397S575 408 682 414"/>
+    <path d="M70 466C190 521 306 460 415 451S565 449 682 466"/>
+  </g>
+  <g fill="#ef5549">
+    <circle cx="195" cy="176" r="6"/><circle cx="325" cy="227" r="6"/><circle cx="489" cy="340" r="6"/><circle cx="608" cy="432" r="6"/>
+  </g>
+  <path d="M682 136H1198V536H682Z" fill="#1e1e1c"/>
+  <path d="M682 136H1198V536" fill="none" stroke="#ef5549" stroke-width="7"/>
+  <g fill="#f3efe6" font-family="Arial, Helvetica, sans-serif">
+    <text x="730" y="220" font-size="64" font-weight="800" letter-spacing="-3">DID AI</text>
+    <text x="730" y="294" font-size="64" font-weight="800" letter-spacing="-3">STEAL THE</text>
+    <text x="730" y="368" font-size="64" font-weight="800" letter-spacing="-3">PROOF?</text>
+    <text x="730" y="446" fill="#ef5549" font-family="monospace" font-size="15" font-weight="700" letter-spacing="2">NOT YOUR MODEL / NOT YOUR RESEARCH</text>
+  </g>
+  <text x="72" y="616" fill="#1e1e1c" font-family="monospace" font-size="18">JOS STAM / NAVIER–STOKES / RESEARCH CUSTODY / OPEN MODELS</text>
+  <text x="72" y="653" fill="#6f6c67" font-family="monospace" font-size="14">THE ANSWER IS PUBLIC. CAN THE METHOD BE REPRODUCED?</text>
+</svg>

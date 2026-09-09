@@ -1,0 +1,12 @@
+{
+	auto_https off
+}
+
+http://127.0.0.1:8080 {
+	root * .
+	file_server
+
+	header {
+		Cache-Control "no-store"
+	}
+}
