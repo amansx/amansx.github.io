@@ -669,7 +669,8 @@ img { display: block; max-width: 100%; }
 
 @media (max-width: 1000px) {
   .site-header { grid-template-columns: 1fr auto; row-gap: 18px; padding-top: 18px; }
-  .site-nav { grid-row: 2; grid-column: 1 / -1; justify-content: flex-start; padding: 20px 0; border-top: 1px solid var(--line); }
+  .site-nav { grid-row: 2; grid-column: 1 / -1; width: 100%; justify-content: space-between; gap: 0; padding: 20px 0; border-top: 1px solid var(--line); }
+  .site-nav a { flex: 1 1 0; justify-content: center; }
   .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding-top: 0; }
   .social-rail { display: none; }
   .hero-copy, .hero-intro { grid-column: 1; width: 100%; margin: 0; padding-left: 0; justify-self: start; text-align: left; }
@@ -693,7 +694,7 @@ img { display: block; max-width: 100%; }
   .brand-name { font-size: 18px; }
   .brand-mark { width: 43px; height: 27px; font-size: 13px; }
   .site-header > .pill { min-height: 44px; padding: 0 18px; }
-  .site-nav { justify-content: flex-start; gap: 12px; padding: 12px 0 14px; overflow-x: auto; }
+  .site-nav { justify-content: space-between; gap: 0; padding: 12px 0 14px; overflow: visible; }
   .hero { display: flex; min-height: auto; flex-direction: column; align-items: stretch; padding: 70px 24px 54px; }
   .hero-copy { width: 100%; align-self: flex-start; margin: 0; padding: 0; text-align: left; }
   .hero-intro { order: 3; padding: 0; }
