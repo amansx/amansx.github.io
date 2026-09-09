@@ -1,6 +1,6 @@
 ---
-title: "Did AI Steal the Proof?"
-description: "The accusation, Sam Altman's confirmation of the trigger, and the research-custody problem behind closed AI."
+title: "Not Your Model, Not Your Research"
+description: "From the Millennium Prize problems and Jos Stam's Stable Fluids to the allegation that OpenAI stole a proof: creativity, research custody, and China's open-model strategy."
 date: 2026-09-09
 category: "Systems / Research infrastructure"
 read_time: "11 minute read"
@@ -8,110 +8,108 @@ thumbnail: "/assets/thumb-not-your-model.svg"
 social_image: "/assets/thumb-not-your-model.png"
 ---
 
-The post says AI stole the proof. Sam Altman says the plagiarism accusation is unfounded. But his response confirms the event that makes the accusation resonate: OpenAI heard that a rival's model may have helped solve a Millennium Prize problem, then aimed its own private system at the same territory.
+Not your model, not your research. Here the phrase describes a custody limit: the researcher does not control the hosted model, its memory, its training boundary, or the provider's evidence about where one idea ended and another began.
 
-## The accusation, and what Altman confirms
+## What is a Millennium Prize problem?
 
-The viral X post presents a complete theft narrative. A mathematics professor used Codex. OpenAI searched his private sessions, found the promising work, and unleashed 10,000 agents to finish it. The public evidence does not establish that OpenAI searched those sessions or copied the proof. That part remains an allegation.
+In 2000, the Clay Mathematics Institute named seven problems whose solutions would close some of the deepest gaps in modern mathematics. Each carries a one-million-dollar prize, but the real reward is historical: a solution must survive publication, expert scrutiny, and time. Only the Poincaré conjecture has been resolved.
 
-Altman does, however, confirm the trigger. “It is true that we tried this because there were rumors on the internet,” he wrote. OpenAI's own account says the effort began on September 1 after rumors of progress by NYU mathematician Tristan Buckmaster and Anthropic researcher Levent Alpöge. The lab then tested its internal model on the open Millennium Prize problems and concentrated resources on Navier–Stokes.
+The Navier–Stokes problem asks whether the equations used to describe fluid motion always produce smooth, well-behaved solutions in three dimensions, given suitable starting conditions, or whether a singularity can form in finite time. A singularity is a mathematical breakdown where some quantity becomes unbounded and the classical solution stops behaving as expected.
 
-Altman says the two approaches appear different now that both are visible. OpenAI says no specific user data was accessed. The company also says it cannot rule out that de-identified data derived from product usage helped improve its models. So the post and Altman do not agree that a proof was stolen. They agree on the sequence at the center of the suspicion: a rumor about researchers using frontier AI reached the model provider, and the provider used vastly greater private compute to pursue nearby work.
+This is easy to confuse with a different achievement. Engineers and graphics researchers already solve useful approximations of Navier–Stokes every day. Weather models, aircraft simulations, visual effects, games, and interactive art can all compute fluid motion without settling the prize problem. The prize asks for a proof about the equations themselves. A simulation asks for a useful numerical answer under chosen assumptions.
 
-This distinction matters. There is no demonstrated chain from a private session to OpenAI's proof. There is a demonstrated structural conflict. The same company can sell the workbench, improve the model from some consumer usage, hear that valuable work may be happening, and become the best-funded competitor in the same research race.
+> Mathematics asks whether the river can become impossible. Graphics asks whether we can make convincing smoke before the next frame.
 
-A researcher can pay for the tool, use it as an intellectual workbench, and still lack a simple, independently verifiable account of whether that work influenced the capability competing beside them. That is the trust problem even if the plagiarism claim is never proven.
+## Back in the day came Jos Stam
 
-## Before fluids were interactive
+By the late 1990s, physically based fluid animation was possible, but interactivity was fragile. Earlier graphics solvers commonly advanced a fluid directly from one grid state to the next. If velocity increased, the grid became finer, or the timestep grew too large, errors could compound until the simulation blew up. The safe response was to take smaller steps and perform more computation, which worked against real-time control.
 
-Navier–Stokes describes fluid motion through coupled fields for velocity and pressure. In computer graphics, the equations give smoke, fire, and water something better than decorative turbulence: motion that responds coherently to forces and obstacles.
+Jos Stam's creative move in *Stable Fluids* was not to discover Navier–Stokes. It was to change the definition of success. An engineering simulation may prioritize strict physical accuracy. An animator needs believable motion, immediate response, and a system that does not explode halfway through an interaction. Stam accepted some artificial damping in exchange for stability at large timesteps.
 
-Before Stam's *Stable Fluids*, interactive physical solvers had a punishing failure mode. Explicit numerical schemes could become unstable when a timestep was too large. A fast flow or fine grid forced smaller steps, which made real-time interaction expensive. Push the simulation too hard and its values exploded. The system had to restart with a smaller timestep.
-
-Stam changed the product constraint. Instead of asking for engineering-grade physical accuracy, he optimized for believable, controllable motion at interactive speed. Semi-Lagrangian advection traced each grid point backward through the velocity field. An implicit solve handled diffusion. A pressure projection returned the velocity field to a divergence-free state so the simulated fluid conserved mass.
+His solver separated the fluid update into understandable operations:
 
 ```text
-external force → advect → diffuse → project
-                  ↑                    │
-                  └──── next step ─────┘
+add force → transport → diffuse → project
 ```
 
-Stam split one difficult update into understandable stages. Stability allowed larger timesteps; numerical dissipation was the deliberate cost of making the solver interactive.
+1. Add forces from the animator or environment.
+2. Move information by tracing each destination backward through the old flow.
+3. Model viscosity with a stable implicit solve.
+4. Remove artificial compression so the velocity conserves mass.
 
-The solver was unconditionally stable in the numerical sense: increasing the timestep would degrade the motion before it caused the simulation to blow up. It introduced numerical dissipation, so swirls faded faster than they would in reality. Stam documented the trade instead of hiding it. For animation, stability and control were worth more than strict physical fidelity.
+The backward transport step became especially influential. Instead of pushing a value forward and hoping it lands safely on the grid, each destination cell asks where its contents came from and samples that earlier location. The method is stable even when a particle travels across several cells in one step. Interpolation smooths away some fine swirls, but the system keeps running.
 
-The work nearly missed SIGGRAPH. It became Stam's most cited paper, enabled the first live interactive fluid demonstrations many attendees had seen, and later became roughly 100 lines of readable C for game developers. The paper explained the equations, the algorithm, the compromises, and the implementation path. A reader could take the work home.
+Diffusion handles viscosity. A direct explicit update can overshoot when the timestep is large. Stam instead solves an implicit linear system for the future field, so the new grid already satisfies the diffusion relationship between neighboring cells. The solve costs more per step, but it removes the small-timestep restriction that made interaction brittle.
 
-> The durable artifact was not merely a fluid animation. It was a method another person could own.
+The final projection restores incompressibility. Intermediate operations can leave cells behaving like unexplained sources or drains. Using the Helmholtz–Hodge decomposition, the solver finds a pressure field whose gradient contains that compressive component, then subtracts the gradient from velocity. The remaining field has zero divergence and conserves mass.
 
-## Now the method is infrastructure
+*Stable Fluids* appeared at SIGGRAPH 1999. SIGGRAPH is the Association for Computing Machinery's flagship conference on computer graphics and interactive techniques, where foundational research often moves directly into films, games, design tools, and GPU hardware. A live, controllable three-dimensional fluid at that venue was not merely a paper result. It was a demonstration that artists could work with simulated smoke, gases, and flowing textures as responsive material.
 
-OpenAI's 2026 result addresses a different question. It is not a faster smoke solver and does not replace computational fluid dynamics. The Millennium Prize problem asks whether smooth three-dimensional Navier–Stokes motion must remain smooth, or whether the equations can develop a singularity in finite time. OpenAI says its system constructed a forced flow that develops such a singularity and released both a written proof and a Lean formalization.
+The original implementation was roughly 500 lines of C. It supported two-dimensional and three-dimensional flows, transported density and texture coordinates, responded to forces in real time, and ran on the workstation hardware of its day. More accurate methods later restored lost detail, handled free surfaces, and moved the computation onto GPUs. Modern production solvers are far beyond the 1999 code, but the architecture remains recognizable.
 
-The production system is as consequential as the mathematics. OpenAI reports that about 10,000 concurrent agents worked on the successful branch of the effort. The Navier–Stokes run generated 2.7 million agent messages and roughly 130 billion output tokens. Agent groups explored different formulations, exchanged useful intermediate results, and were upgraded when a stronger internal model became available. Lean verification followed.
+We still use the idea because it solved the product problem as well as the mathematical one. Variations of Stable Fluids appear in visual effects, games, interactive paint, browser experiments, mobile graphics, and real-time smoke. The work endured because Stam explained the compromise and published enough for other people to reproduce, criticize, and improve it.
 
-This is excellent systems design: parallel search, isolated work groups, selective information exchange, model hot-swapping, and a formal verification stage. It treats mathematical exploration as a distributed computation whose speculative branches can be searched at machine scale.
+## Then came the allegation
 
-It is less satisfying as a model of academic research. The proof is public, but the decisive model is not. The orchestration is described, but the full experiment is not reproducible outside the company. We can inspect the final certificate without being able to rerun the intellectual factory that produced it.
+On September 8, 2026, a widely shared [X post alleged that OpenAI stole a Navier–Stokes proof](https://x.com/ns123abc/status/2097423705240428932?s=20). Its story is direct: outside mathematicians had been working with Codex; OpenAI had their logs; the company found promising private work, scaled it with 10,000 agents, and then denied seeing the researchers' proof.
 
-## The boundary moved inside the tool
+[![Screenshot attached to the X post showing Sam Altman's response](/assets/x-post-sam-altman.png)](https://x.com/ns123abc/status/2097423705240428932/photo/1)
 
-Social media taught users a crude bargain: if the service is free, your attention and behavior finance it. AI changes that bargain. The user may pay a subscription and still supply high-value interactions that improve an asset they neither own nor can inspect.
+[![Screenshot attached to the X post showing OpenAI's statement on data access](/assets/x-post-openai-statement.png)](https://x.com/ns123abc/status/2097423705240428932/photo/2)
 
-OpenAI's consumer policy says content from individual services, including ChatGPT and Codex, may be used to train models unless the user opts out. Business products and the API are excluded from training by default. Those are meaningful controls, and the distinction matters. It also means that payment alone does not establish research confidentiality. The product tier, settings, feedback actions, and contract determine the boundary.
+### What the public statements establish
 
-For routine engineering, that may be acceptable. A closed model can be an extraordinary accelerator for architecture reviews, code generation, migrations, incident analysis, and design exploration. The organization can validate the output against tests, production behavior, and its own source of truth.
+Sam Altman wrote: “It is true that we tried this because there were rumors on the internet.” OpenAI says the company began testing its internal system against the remaining Millennium Prize problems after hearing that NYU mathematician Tristan Buckmaster and Anthropic researcher Levent Alpöge might have made progress.
 
-Unpublished academic work has a different threat model. Novelty and priority are part of the asset. A useful exchange with a model can reveal the problem, the failed approaches, the promising lemma, and the direction that finally moved. Removing a name from that trace does not remove its intellectual value.
+OpenAI states that neither its researchers nor its agents saw the outside work before public release and that no specific user data was accessed for the project. The same statement says the company cannot rule out that de-identified data derived from the researchers' product usage helped improve its models.
+
+OpenAI reports that the successful branch used about 10,000 concurrent agents, 2.7 million messages, and roughly 130 billion output tokens. It released a written proof and a Lean formalization. The X post alleges targeted access to private work; OpenAI denies targeted access. Altman and OpenAI confirm that the company's effort began after rumors of the outside research.
+
+### The custody question
+
+The model provider holds the model, product logs, training pipeline, and internal audit evidence. The researcher controls the material retained outside the service and the records the service allows them to export. The dispute cannot be independently reconstructed from the public artifacts alone.
+
+## Creativity is becoming harder to defend
+
+Ideas have always leaked through conversation, peer review, hiring, publication, and parallel discovery. Hosted AI changes the geometry of that risk. The notebook, collaborator, library, editor, and execution environment can now be one service. Every failed path can be as informative as the final answer, and all of it may pass through infrastructure controlled by a potential competitor.
+
+This does not require an employee to open a transcript and copy a sentence. Aggregate training can absorb patterns across many interactions. Internal evaluation can reveal where users find unusual value. Product telemetry can identify emerging classes of problems. The appropriation risk becomes statistical and infrastructural, which makes intention difficult to prove and provenance difficult to audit.
+
+OpenAI's consumer policy says content from individual services may be used to improve models unless the user opts out. Business products and the API are excluded from training by default. Those controls matter. They also mean that paying for a subscription is not, by itself, a research-confidentiality agreement.
+
+## China solves the trust problem differently
+
+China cannot assume that the rest of the world will trust its institutions, cloud services, censorship rules, or state influence. Its leading AI labs have responded with a strategically powerful move: distribute models that developers can download, inspect, adapt, and run under their own control.
+
+DeepSeek and Alibaba's Qwen family do not require every user to send private work to a Chinese endpoint. Open-weight releases let a university, startup, government, or manufacturer keep inference and sensitive data inside its chosen boundary. The world does not have to trust the provider in the same way because possession moves closer to the user.
+
+Leading U.S. labs have generally chosen the opposite bargain. Their strongest models remain behind APIs and subscriptions. Customers receive remarkable capability, but must trust policy, contract, and corporate governance because they cannot inspect the weights or reproduce the service independently.
 
 ```text
-researcher-owned work
-question · notebook · failed paths · promising result
-                         │
-                         ▼
-service boundary
-terms · data controls · retention · training policy
-                         │
-                         ▼
-provider-owned capability
-model · weights · training pipeline · capability gain
+release weights → run locally → inspect + adapt → earn adoption
+       ↑                                             │
+       └──────────── ecosystem compounds ────────────┘
 ```
 
-Anonymity is not provenance. Research custody requires an auditable account of collection, retention, training, model versions, and downstream use.
+This is a major reason China is gaining ground in the AI race. Open models spread through universities, startups, devices, and national infrastructure. Every deployment produces ports, evaluations, optimizations, derivatives, and trained practitioners. The ecosystem compounds outside the original laboratory.
 
-“Not your model, not your data” is therefore more than a slogan. If you cannot run the model, inspect its version, export the complete interaction history, or audit the training boundary, then your research process depends on institutional assurances. That may be a valid choice, but it is not the same as custody.
+The caveat matters. Open weights are not automatically open source. The Open Source Initiative also asks for the code and detailed data information needed to study and modify a system. Chinese models can retain opaque training data, licensing limits, censorship behavior, and security risks. A downloadable model is not a guarantee of truth or freedom.
 
-## China is winning the distribution race
+But it changes who holds the artifact. A closed U.S. model asks the world to trust the institution. An open Chinese model allows the world to verify more, host it elsewhere, remove the network connection, and walk away with a working system. For countries and companies wary of both superpowers, that difference is procurement, sovereignty, and leverage.
 
-Saying China is “winning AI” is too broad. The United States still leads in frontier training compute and its closed models remain slightly ahead on many measures. China's strategic advantage is different: its strongest labs have treated model availability as a distribution mechanism.
+## The method is part of the discovery
 
-DeepSeek released R1 weights under the MIT license. Alibaba's Qwen family and a wider Chinese model ecosystem gave developers downloadable systems they could run locally, fine-tune, quantize, fork, and embed without routing every experiment through a foreign API. Research covering 2.2 billion Hugging Face downloads found a sharp decline in the open-model dominance of U.S. companies and a rise in Chinese industry, especially DeepSeek and Qwen.
+Jos Stam's work lasted because he released more than an impressive animation. He explained the constraint, the compromise, the stable alternative, and the implementation. Other people could reproduce the effect, challenge the tradeoff, and improve the method.
 
-That openness creates a compounding loop.
+OpenAI published a proof and Lean formalization, and it denies accessing the outside researchers' specific data. The X post alleges that private work was used. The public record does not provide the provider-held logs and model lineage needed to reconstruct that dispute independently. As creativity moves into closed systems, creators have less evidence with which to demonstrate custody.
 
-```text
-release weights → run locally → adapt → diffuse
-       ↑                              │
-       └──── ecosystem compounds ─────┘
-```
-
-More access produces more deployments. More deployments create ports, optimizations, distillations, evaluations, and trained practitioners. Those improvements lower the cost of the next deployment. Compute scarcity can become pressure for efficiency rather than a permanent excuse for exclusion.
-
-Open weights are not automatically open source. The Open Source Initiative's definition also requires the code and detailed data information needed to study and modify the system. Training-data transparency has declined even as open-weight adoption has grown. Chinese systems also carry governance, censorship, security, and provenance risks of their own. Openness makes those systems more inspectable and adaptable; it does not make them neutral.
-
-Still, the strategic contrast is sharp. A closed laboratory accumulates capability inside one balance sheet. An open-weight ecosystem distributes capability into universities, startups, factories, devices, and other laboratories. The first can lead a benchmark. The second can become the substrate on which a generation learns to build.
-
-## A scientific tool needs a scientific contract
-
-AI for research should provide more than a privacy toggle. A credible research mode would isolate work from training by default, preserve an exportable and tamper-evident history, pin exact model and tool versions, record retrieved sources, expose transformation lineage, and make retention rules explicit. Formal verification can validate a proof's internal logic; provenance must validate how the proof entered the world.
-
-Where the model itself cannot be released, the surrounding process should become more inspectable. Where the question is exceptionally sensitive, researchers should use enterprise or API agreements that exclude training, or run open-weight models inside infrastructure they control. The right choice depends on the cost of disclosure, not the convenience of the chat window.
-
-Jos Stam's work endured because its value escaped the machine on which it was created. He published enough for other people to understand the trick, reproduce the effect, identify the loss of accuracy, and improve the method. That is how research becomes a field rather than a feature.
+A serious research tool should isolate work from training by default, pin model and tool versions, preserve a complete exportable history, record retrieved sources, make retention explicit, and produce tamper-evident lineage. Formal verification can show that a proof is internally valid. It cannot show where the creative direction originated.
 
 > A result can be public while the power that produced it remains private. Science needs both the answer and a path others are allowed to walk.
 
-[The post alleging theft](https://x.com/ns123abc/status/2097423705240428932?s=20)
+[Clay Millennium Prize Problems](https://www.claymath.org/millennium-problems/)
+
+[The X post alleging theft](https://x.com/ns123abc/status/2097423705240428932?s=20)
 
 [Sam Altman's response](https://x.com/sama/status/2097385167002415140)
 
@@ -119,14 +117,16 @@ Jos Stam's work endured because its value escaped the machine on which it was cr
 
 [Jos Stam's publication notes](https://www.josstam.com/publications)
 
-[OpenAI's Navier–Stokes announcement](https://openai.com/index/navier-stokes-solution/)
+[OpenAI's Navier–Stokes account](https://openai.com/index/navier-stokes-solution/)
 
-[Lean formalization](https://github.com/openai/NavierStokesAndEuler)
+[OpenAI's Lean formalization](https://github.com/openai/NavierStokesAndEuler)
 
 [OpenAI data-use policy](https://openai.com/policies/how-your-data-is-used-to-improve-model-performance/)
 
-[Open Source AI Definition](https://opensource.org/ai/open-source-ai-definition)
+[DeepSeek-R1 release](https://api-docs.deepseek.com/news/news250120/)
 
-[Economies of Open Intelligence](https://arxiv.org/abs/2512.03073)
+[Qwen open resources](https://qwenlm.github.io/about/)
+
+[Open Source AI Definition](https://opensource.org/ai/open-source-ai-definition)
 
 [China's open-model strategy](https://www.uscc.gov/sites/default/files/2026-03/Two_Loops--How_Chinas_Open_AI_Strategy_Reinforces_Its_Industrial_Dominance.pdf)

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" role="img" aria-labelledby="title description">
-  <title id="title">Did AI Steal the Proof?</title>
+  <title id="title">Not Your Model, Not Your Research</title>
   <desc id="description">Fluid streamlines move from an open research grid into an opaque model boundary.</desc>
   <defs>
     <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#1e1e1c" stroke-opacity=".13"/></pattern>
@@ -22,10 +22,11 @@
   <path d="M682 136H1198V536H682Z" fill="#1e1e1c"/>
   <path d="M682 136H1198V536" fill="none" stroke="#ef5549" stroke-width="7"/>
   <g fill="#f3efe6" font-family="Arial, Helvetica, sans-serif">
-    <text x="730" y="220" font-size="64" font-weight="800" letter-spacing="-3">DID AI</text>
-    <text x="730" y="294" font-size="64" font-weight="800" letter-spacing="-3">STEAL THE</text>
-    <text x="730" y="368" font-size="64" font-weight="800" letter-spacing="-3">PROOF?</text>
-    <text x="730" y="446" fill="#ef5549" font-family="monospace" font-size="15" font-weight="700" letter-spacing="2">NOT YOUR MODEL / NOT YOUR RESEARCH</text>
+    <text x="730" y="216" font-size="54" font-weight="800" letter-spacing="-3">NOT YOUR</text>
+    <text x="730" y="278" font-size="54" font-weight="800" letter-spacing="-3">MODEL</text>
+    <text x="730" y="354" font-size="54" font-weight="800" letter-spacing="-3">NOT YOUR</text>
+    <text x="730" y="416" font-size="54" font-weight="800" letter-spacing="-3">RESEARCH</text>
+    <text x="730" y="474" fill="#ef5549" font-family="monospace" font-size="14" font-weight="700" letter-spacing="2">CREATIVITY NEEDS CUSTODY</text>
   </g>
   <text x="72" y="616" fill="#1e1e1c" font-family="monospace" font-size="18">JOS STAM / NAVIER–STOKES / RESEARCH CUSTODY / OPEN MODELS</text>
   <text x="72" y="653" fill="#6f6c67" font-family="monospace" font-size="14">THE ANSWER IS PUBLIC. CAN THE METHOD BE REPRODUCED?</text>

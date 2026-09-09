@@ -2,7 +2,10 @@ module anixir.com/site/tools
 
 go 1.25.1
 
-tool github.com/caddyserver/caddy/v2/cmd/caddy
+tool (
+	anixir.com/site/tools/cmd/preview
+	github.com/caddyserver/caddy/v2/cmd/caddy
+)
 
 require (
 	cel.dev/expr v0.25.1 // indirect

@@ -17,11 +17,12 @@ repository pins Caddy in `tools/go.mod` and makes it available through
 From the repository root, run:
 
 ```sh
-go tool caddy run --config Caddyfile
+go tool preview
 ```
 
 The first run downloads and compiles the pinned Caddy version. Later runs reuse
-Go's module and build caches.
+Go's module and build caches. The preview command starts Caddy, waits for the
+site to respond on port `8080`, and opens it in your default browser.
 
 Open <http://127.0.0.1:8080/>. Clean directory routes work locally just as they
 do on GitHub Pages, for example:
@@ -30,10 +31,23 @@ do on GitHub Pages, for example:
 - <http://127.0.0.1:8080/writing/>
 - <http://127.0.0.1:8080/about/>
 
-The checked-in `Caddyfile` serves the repository root over local HTTP and sends
-`Cache-Control: no-store`, so browser refreshes show current edits.
+The checked-in `Caddyfile` serves the repository root only on port `8080`,
+disables Caddy's separate admin listener on port `2019`, and sends
+`Cache-Control: no-store` so browser refreshes show current edits.
 
 Stop the foreground server with `Ctrl+C`.
+
+To start it without opening a browser, run:
+
+```sh
+go tool preview --no-open
+```
+
+You can also invoke Caddy directly:
+
+```sh
+go tool caddy run --config Caddyfile
+```
 
 ### Validate the Caddy configuration
 
