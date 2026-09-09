@@ -113,7 +113,7 @@ A serious research tool should isolate work from training by default, pin model 
 
 A 64 x 64 fluid grid turns Stam's method into a bright nebula plume. It rises from a circular core, follows the pointer, and curls through a slowly moving field of stars.
 
-<iframe src="/experiments/stable-fluids/smokey-mcflame-face/" title="Smokey McFlame Face interactive fluid simulation" loading="lazy"></iframe>
+<iframe src="/experiments/stable-fluids/smokey-mcflame-face/" title="Smokey McFlame Face interactive fluid simulation" scrolling="no"></iframe>
 
 Pure JavaScript and canvas. Start the simulation, then move a mouse, pen, or finger through the field.
 
