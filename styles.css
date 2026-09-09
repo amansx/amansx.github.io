@@ -173,8 +173,8 @@ img { display: block; max-width: 100%; }
 .text-link { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 0; color: var(--red-dark); font: 700 12px/1.4 var(--mono); letter-spacing: .03em; text-decoration: none; }
 
 .featured-project { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 390px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; }
-.featured-project-adam { border-radius: 12px 12px 0 0; }
-.featured-project-adam + .featured-project { margin-top: 0; border-top: 0; border-radius: 0 0 12px 12px; }
+.featured-project-adam { border-radius: 12px; }
+.featured-project-adam + .featured-project { margin-top: 28px; border-radius: 12px; }
 .featured-project-image { position: relative; min-height: 390px; overflow: hidden; border-right: 1px solid var(--line); background-color: var(--ink); background-image: radial-gradient(circle at 50% 50%, rgba(55,189,211,.13), transparent 34%), linear-gradient(rgba(247,243,235,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(247,243,235,.08) 1px, transparent 1px); background-size: auto, 32px 32px, 32px 32px; }
 .featured-project-image::before { position: absolute; z-index: 2; top: -20%; bottom: -20%; left: -32%; width: 24%; content: ""; background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); transform: skewX(-12deg); animation: scan-field 8s ease-in-out infinite; }
 .featured-project-image::after { position: absolute; z-index: 2; inset: 0; content: ""; background: linear-gradient(135deg, transparent 48%, rgba(240,82,69,.14)); pointer-events: none; }
