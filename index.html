@@ -20,7 +20,7 @@
   <meta name="twitter:image:alt" content="Anixir landing page featuring Aman Singh and his ink portrait">
   <title>Anixir | Aman Singh - Principal Distributed Systems Engineer</title>
   <link rel="icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/styles.css?v=20260909-09">
+  <link rel="stylesheet" href="/styles.css?v=20260909-10">
 </head>
 <body class="page-home">
   <div class="site-frame">
@@ -97,12 +97,19 @@
         </div>
         <a class="featured-project featured-project-adam" href="/writing/adam/">
           <div class="featured-project-image">
-            <img src="/assets/thumb-adam-excavator.png" width="1280" height="720" alt="A.D.A.M. excavator digital twin on a dusty construction site">
+            <img src="/assets/thumb-adam-excavator.png" width="1280" height="720" alt="A.D.A.M. excavator telemetry on a dusty construction site">
+            <svg class="adam-routes" viewBox="0 0 640 390" preserveAspectRatio="none" aria-hidden="true">
+              <defs><filter id="adam-signal-glow" x="-400%" y="-400%" width="800%" height="800%"><feGaussianBlur stdDeviation="3" result="blur"></feGaussianBlur><feMerge><feMergeNode in="blur"></feMergeNode><feMergeNode in="SourceGraphic"></feMergeNode></feMerge></filter></defs>
+              <path class="adam-route" d="M64 304 C172 244 234 250 320 195 C406 140 486 148 576 88"></path>
+              <path class="adam-route" d="M72 88 C182 112 230 156 320 195 C410 234 482 276 568 304"></path>
+              <circle class="adam-packet" r="4"><animateMotion dur="4.1s" repeatCount="indefinite" path="M64 304 C172 244 234 250 320 195 C406 140 486 148 576 88"></animateMotion></circle>
+              <circle class="adam-packet adam-packet-hot" r="5"><animateMotion dur="5s" begin="-2.2s" repeatCount="indefinite" path="M72 88 C182 112 230 156 320 195 C410 234 482 276 568 304"></animateMotion></circle>
+            </svg>
           </div>
           <div class="project-copy">
             <div class="project-meta"><span>Featured venture</span><span>August 2018</span></div>
             <h3>A.D.A.M.</h3>
-            <p>Hardware engineering, industrial design, and a camera-free digital twin that tracked excavator pose, personnel proximity, and machine utilization in real time.</p>
+            <p>Hardware engineering, industrial design, and a camera-free fleet system that tracked excavator pose, personnel proximity, and machine utilization in real time.</p>
             <span class="text-link">Read the project story</span>
           </div>
         </a>

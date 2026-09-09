@@ -1,6 +1,6 @@
 ---
-title: "A.D.A.M.: Hardware Engineering a Camera-Free Excavator Twin"
-description: "How A.D.A.M. used GPS, UWB, 9-axis motion sensing, LoRa, embedded geospatial indexing, and a browser-based digital twin to understand heavy equipment in real time."
+title: "A.D.A.M.: Camera-Free Industrial Fleet Tracking"
+description: "How A.D.A.M. used GPS, UWB, 9-axis motion sensing, LoRa, embedded geospatial indexing, and a browser-based fleet command view to understand heavy equipment in real time."
 date: 2018-08
 category: "Industrial design / Hardware engineering"
 read_time: "9 minute read"
@@ -70,7 +70,7 @@ The ESP32 was the field node attached to the machine. GPS, UWB, and the 9-axis I
 
 The BeagleBoard was the command module. It received site telemetry and gave the application an edge computer on which to normalize device messages, maintain useful state, and serve the operational view. This separation kept sensing close to the machine while giving coordination and storage a more capable local home.
 
-## From radio packets to a digital twin
+## From radio packets to a live fleet view
 
 The interesting work began after a packet arrived. Raw sensor values are not a product. They have different coordinate systems, update rates, noise profiles, and failure modes.
 
@@ -113,9 +113,9 @@ For safety, the critical output was distance with context. A person five meters 
 
 The tracking prototype sat inside a larger industrial thesis. A.D.A.M. was structured as an incubation partnership between Doosan and BCG Digital Ventures, not as a one-off visualization.
 
-The broader opportunity included predictive maintenance from high-frequency equipment data, digital-twin frameworks for plants and heavy assets, and a scalable software business that could serve Doosan before expanding to other industrial customers.
+The broader opportunity included predictive maintenance from high-frequency equipment data, immersive operational models for plants and heavy assets, and a scalable software business that could serve Doosan before expanding to other industrial customers.
 
-This early build made that ambition tangible. It joined a physical machine, custom sensor hardware, long-range telemetry, local spatial storage, and a browser twin into one working path. A.D.A.M. subsequently secured $20 million in venture funding through BCGDV.
+This early build made that ambition tangible. It joined a physical machine, custom sensor hardware, long-range telemetry, local spatial storage, and a browser fleet view into one working path. A.D.A.M. subsequently secured $20 million in venture funding through BCGDV.
 
 Funding did not turn a prototype into a finished industrial safety system. It showed that the prototype had completed one of its most important jobs: reduce a large venture idea to a system people could see, test, challenge, and choose to back.
 
@@ -125,7 +125,7 @@ The two-minute recording is simple and unusually useful. A real Doosan excavator
 
 There is no polished launch film and no attempt to hide the wiring. The value is the correspondence between the two objects: steel outside, state inside the browser.
 
-That is what a good digital twin should do. It should not merely resemble a machine. It should let the machine explain itself.
+That is what a good industrial model should do. It should not merely resemble a machine. It should let the machine explain itself.
 
 ## What stayed with me
 
@@ -147,4 +147,4 @@ Most of all, the project showed how hardware becomes understandable through soft
 
 [BuntDB geospatial indexing](https://github.com/tidwall/buntdb)
 
-[Babylon.js digital twins and IoT](https://www.babylonjs.com/digitalTwinIot/)
+[Babylon.js industrial visualization](https://www.babylonjs.com/digitalTwinIot/)

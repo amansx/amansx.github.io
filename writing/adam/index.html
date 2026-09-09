@@ -3,31 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="How Aman Singh built A.D.A.M.: a camera-free hardware and digital twin prototype for tracking excavators, personnel, safety, and utilization in real time.">
-  <title>Anixir | A.D.A.M.: Hardware Engineering a Camera-Free Excavator Twin</title>
+  <meta name="description" content="How Aman Singh built A.D.A.M.: a camera-free hardware and live 3D fleet-monitoring system for tracking excavators, personnel, safety, and utilization in real time.">
+  <title>Anixir | A.D.A.M.: Camera-Free Industrial Fleet Tracking</title>
   <link rel="canonical" href="https://anixir.com/writing/adam/">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="Anixir">
-  <meta property="og:title" content="A.D.A.M.: Hardware Engineering a Camera-Free Excavator Twin">
-  <meta property="og:description" content="How A.D.A.M. joined GPS, UWB, 9-axis motion, LoRa, embedded geospatial state, and a browser digital twin on a dusty construction site.">
+  <meta property="og:title" content="A.D.A.M.: Camera-Free Industrial Fleet Tracking">
+  <meta property="og:description" content="How A.D.A.M. joined GPS, UWB, 9-axis motion, LoRa, embedded geospatial state, and a browser fleet command view on a dusty construction site.">
   <meta property="og:url" content="https://anixir.com/writing/adam/">
   <meta property="og:image" content="https://anixir.com/assets/thumb-adam-excavator.png?v=2">
   <meta property="og:image:width" content="1280">
   <meta property="og:image:height" content="720">
-  <meta property="og:image:alt" content="A.D.A.M. excavator digital twin on a dusty construction site">
+  <meta property="og:image:alt" content="A.D.A.M. excavator telemetry on a dusty construction site">
   <meta property="article:published_time" content="2018-08">
   <meta property="article:author" content="https://anixir.com/about/">
   <meta property="article:section" content="Industrial design">
   <meta property="article:tag" content="Hardware engineering">
   <meta property="article:tag" content="Industrial IoT">
-  <meta property="article:tag" content="Digital twins">
+  <meta property="article:tag" content="Fleet tracking">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="A.D.A.M.: Hardware Engineering a Camera-Free Excavator Twin">
+  <meta name="twitter:title" content="A.D.A.M.: Camera-Free Industrial Fleet Tracking">
   <meta name="twitter:description" content="An August 2018 hardware prototype that turned a Doosan excavator into a live spatial data stream.">
   <meta name="twitter:image" content="https://anixir.com/assets/thumb-adam-excavator.png?v=2">
-  <meta name="twitter:image:alt" content="A.D.A.M. excavator digital twin on a dusty construction site">
+  <meta name="twitter:image:alt" content="A.D.A.M. excavator telemetry on a dusty construction site">
   <link rel="icon" href="/favicon.ico">
-  <link rel="stylesheet" href="/styles.css?v=20260909-09">
+  <link rel="stylesheet" href="/styles.css?v=20260909-10">
 </head>
 <body>
   <div class="site-frame">
@@ -41,8 +41,8 @@
       <a class="back-link" href="/writing/">← All writing</a>
       <header class="article-header">
         <div class="article-meta"><span>Industrial design / Hardware engineering</span><time datetime="2018-08">August 2018</time><span>9 minute read</span></div>
-        <h1 class="adam-title">A.D.A.M.<br>Hardware Engineering a<br>Camera-Free Excavator Twin</h1>
-        <p class="dek">How A.D.A.M. joined GPS, UWB, 9-axis motion sensing, LoRa, embedded geospatial state, and a browser-based digital twin on a dusty construction site.</p>
+        <h1 class="adam-title">A.D.A.M.<br>Camera-Free Industrial<br>Fleet Tracking</h1>
+        <p class="dek">How A.D.A.M. joined GPS, UWB, 9-axis motion sensing, LoRa, embedded geospatial state, and a browser-based fleet command view on a dusty construction site.</p>
       </header>
 
       <figure class="article-hero-media article-hero-dark">
@@ -55,7 +55,7 @@
         <div><span>02 / Range</span><strong>UWB</strong><small>people + machine distance</small></div><i aria-hidden="true">→</i>
         <div><span>03 / Motion</span><strong>9-axis IMU</strong><small>pose + activity</small></div><i aria-hidden="true">→</i>
         <div><span>04 / Radio</span><strong>LoRa</strong><small>low-bandwidth telemetry</small></div><i aria-hidden="true">→</i>
-        <div class="adam-twin-node"><span>05 / Model</span><strong>Live twin</strong><small>space + state + risk</small></div>
+        <div class="adam-fleet-node"><span>05 / Command</span><strong>Fleet view</strong><small>space + state + risk</small></div>
         <figcaption id="adam-pipeline-caption">Different sensors described different scales of the same physical machine. The browser joined them into one operational view.</figcaption>
       </figure>
 
@@ -98,7 +98,7 @@
           <p>The ESP32 was the field node attached to the machine. GPS, UWB, and the 9-axis IMU met there, close to the physical signals they measured. It timestamped and packaged those readings for the LoRa link.</p>
           <p>The BeagleBoard was the command module. It received site telemetry and gave the application an edge computer on which to normalize device messages, maintain useful state, and serve the operational view. This separation kept sensing close to the machine while giving coordination and storage a more capable local home.</p>
 
-          <h2>From radio packets to a digital twin</h2>
+          <h2>From radio packets to a live fleet view</h2>
           <p>The interesting work began after a packet arrived. Raw sensor values are not a product. They have different coordinate systems, update rates, noise profiles, and failure modes.</p>
           <p>The pipeline normalized device identity and timestamps, transformed geographic and local coordinates, smoothed motion, and connected each reading to the correct asset. BuntDB kept the live state close to the application and supplied spatial indexing through an R-tree. That made questions such as "what is inside this zone?" and "what is nearest to this asset?" natural operations rather than full scans.</p>
           <p>React.js organized the operational interface. Babylon.js and Three.js handled the browser's spatial presentation: the site, the machine model, and the articulated transforms. The 3D view was not decoration. It compressed a stream of orientation values into something an operator could understand immediately.</p>
@@ -129,22 +129,22 @@
 
           <h2>The wider A.D.A.M. venture</h2>
           <p>The tracking prototype sat inside a larger industrial thesis. A.D.A.M. was structured as an incubation partnership between Doosan and BCG Digital Ventures, not as a one-off visualization.</p>
-          <p>The broader opportunity included predictive maintenance from high-frequency equipment data, digital-twin frameworks for plants and heavy assets, and a scalable software business that could serve Doosan before expanding to other industrial customers.</p>
-          <p>This early build made that ambition tangible. It joined a physical machine, custom sensor hardware, long-range telemetry, local spatial storage, and a browser twin into one working path. A.D.A.M. subsequently secured $20 million in venture funding through BCGDV.</p>
+          <p>The broader opportunity included predictive maintenance from high-frequency equipment data, immersive operational models for plants and heavy assets, and a scalable software business that could serve Doosan before expanding to other industrial customers.</p>
+          <p>This early build made that ambition tangible. It joined a physical machine, custom sensor hardware, long-range telemetry, local spatial storage, and a browser fleet view into one working path. A.D.A.M. subsequently secured $20 million in venture funding through BCGDV.</p>
           <blockquote>Funding showed that the prototype had completed one of its most important jobs: reduce a large venture idea to a system people could see, test, challenge, and choose to back.</blockquote>
           <p>Funding did not turn a prototype into a finished industrial safety system. It created room to take the harder path from promising signal to calibrated product.</p>
 
           <h2>What the video preserves</h2>
           <p>The two-minute recording is simple and unusually useful. A real Doosan excavator occupies the upper half of the frame. A laptop in the foreground shows the A.D.A.M. interface and a blue 3D excavator over a map. As the physical machine changes pose, the browser model follows.</p>
           <p>There is no polished launch film and no attempt to hide the wiring. The value is the correspondence between the two objects: steel outside, state inside the browser.</p>
-          <blockquote>A good digital twin should not merely resemble a machine. It should let the machine explain itself.</blockquote>
+          <blockquote>A good industrial model should not merely resemble a machine. It should let the machine explain itself.</blockquote>
 
           <h2>What stayed with me</h2>
           <p>A.D.A.M. taught me to begin with the failure environment. Dust and occlusion made cameras unreliable, so the architecture used multiple forms of radio and inertial sensing. Global position, local range, and orientation were separate truths that became more useful when joined.</p>
           <p>It also reinforced an idea that appears throughout distributed systems: real-time does not mean sending everything. It means preserving the right state quickly enough to change a decision. A small packet about pose, position, and proximity can be more valuable than a high-resolution stream nobody can interpret in time.</p>
           <p>Most of all, the project showed how hardware becomes understandable through software. The 3D excavator was an interface to a distributed physical system. It made coordinate transforms, radio packets, and sensor fusion visible as motion, distance, risk, and use.</p>
 
-          <div class="article-links"><a href="https://www.youtube.com/watch?v=nvwv5xzTZI0" target="_blank" rel="noopener noreferrer">Watch the A.D.A.M. prototype ↗</a><a href="https://www.doosan.com/en/media-center/press-release_view?id=20171096&amp;page=18&amp;param2=construction" target="_blank" rel="noopener noreferrer">Doosan digital transformation ↗</a><a href="https://www.qorvo.com/products/p/DWM1001C" target="_blank" rel="noopener noreferrer">Qorvo UWB module ↗</a><a href="https://www.bosch-sensortec.com/en/software-tools/software/sensor-fusion-software-bsx" target="_blank" rel="noopener noreferrer">Bosch 9-axis sensor fusion ↗</a><a href="https://www.semtech.com/lora/applications/smart-supply-chain-logistics" target="_blank" rel="noopener noreferrer">LoRa asset tracking ↗</a><a href="https://github.com/tidwall/buntdb" target="_blank" rel="noopener noreferrer">BuntDB geospatial index ↗</a><a href="https://www.babylonjs.com/digitalTwinIot/" target="_blank" rel="noopener noreferrer">Babylon.js digital twins ↗</a></div>
+          <div class="article-links"><a href="https://www.youtube.com/watch?v=nvwv5xzTZI0" target="_blank" rel="noopener noreferrer">Watch the A.D.A.M. prototype ↗</a><a href="https://www.doosan.com/en/media-center/press-release_view?id=20171096&amp;page=18&amp;param2=construction" target="_blank" rel="noopener noreferrer">Doosan digital transformation ↗</a><a href="https://www.qorvo.com/products/p/DWM1001C" target="_blank" rel="noopener noreferrer">Qorvo UWB module ↗</a><a href="https://www.bosch-sensortec.com/en/software-tools/software/sensor-fusion-software-bsx" target="_blank" rel="noopener noreferrer">Bosch 9-axis sensor fusion ↗</a><a href="https://www.semtech.com/lora/applications/smart-supply-chain-logistics" target="_blank" rel="noopener noreferrer">LoRa asset tracking ↗</a><a href="https://github.com/tidwall/buntdb" target="_blank" rel="noopener noreferrer">BuntDB geospatial index ↗</a><a href="https://www.babylonjs.com/digitalTwinIot/" target="_blank" rel="noopener noreferrer">Babylon.js industrial visualization ↗</a></div>
         </article>
       </div>
     </main>
