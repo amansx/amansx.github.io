@@ -12,6 +12,7 @@
 * { box-sizing: border-box; }
 
 html, body { min-height: 100%; }
+html.is-embedded, html.is-embedded body { overflow: hidden; }
 
 body {
   margin: 0;

@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="How Aman Singh built ADAM: a camera-free hardware and digital twin prototype for tracking excavators, personnel, safety, and utilization in real time.">
+  <title>Anixir | Tracking an Excavator Without Cameras</title>
+  <link rel="canonical" href="https://anixir.com/writing/adam/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Anixir">
+  <meta property="og:title" content="Tracking an Excavator Without Cameras">
+  <meta property="og:description" content="How ADAM joined GPS, UWB, 9-axis motion, LoRa, embedded geospatial state, and a browser digital twin on a dusty construction site.">
+  <meta property="og:url" content="https://anixir.com/writing/adam/">
+  <meta property="og:image" content="https://anixir.com/assets/thumb-adam-excavator.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="720">
+  <meta property="og:image:alt" content="Diagram of ADAM sensor telemetry flowing into a live excavator twin">
+  <meta property="article:published_time" content="2018">
+  <meta property="article:author" content="https://anixir.com/about/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tracking an Excavator Without Cameras">
+  <meta name="twitter:description" content="A 2018 hardware prototype that turned a Doosan excavator into a live spatial data stream.">
+  <meta name="twitter:image" content="https://anixir.com/assets/thumb-adam-excavator.png">
+  <meta name="twitter:image:alt" content="Diagram of ADAM sensor telemetry flowing into a live excavator twin">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/styles.css?v=20260909-08">
+</head>
+<body>
+  <div class="site-frame">
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Anixir home"><span class="brand-mark">&lt;/&gt;</span><span class="brand-name">ANIXIR</span></a>
+      <nav class="site-nav" aria-label="Primary navigation"><a href="/work/">Work</a><a href="/art/">Art</a><a aria-current="page" href="/writing/">Writing</a><a href="/about/">About</a></nav>
+      <a class="pill pill-dark" href="/about/#experience">Experience</a>
+    </header>
+
+    <main class="article-page">
+      <a class="back-link" href="/writing/">← All writing</a>
+      <header class="article-header">
+        <div class="article-meta"><span>Hardware / Industrial systems</span><time datetime="2018">2018</time><span>9 minute read</span></div>
+        <h1>Tracking an Excavator<br>Without Cameras</h1>
+        <p class="dek">How ADAM joined GPS, UWB, 9-axis motion sensing, LoRa, embedded geospatial state, and a browser-based digital twin on a dusty construction site.</p>
+      </header>
+
+      <figure class="article-hero-media article-hero-dark">
+        <div class="article-video-frame"><iframe src="https://www.youtube-nocookie.com/embed/nvwv5xzTZI0" title="ADAM prototype tracking a Doosan excavator in real time" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div>
+        <figcaption>ADAM prototype / Doosan construction equipment / 2018</figcaption>
+      </figure>
+
+      <figure class="system-diagram adam-pipeline" aria-labelledby="adam-pipeline-caption">
+        <div><span>01 / Position</span><strong>GPS</strong><small>site-scale location</small></div><i aria-hidden="true">→</i>
+        <div><span>02 / Range</span><strong>UWB</strong><small>people + machine distance</small></div><i aria-hidden="true">→</i>
+        <div><span>03 / Motion</span><strong>9-axis IMU</strong><small>pose + activity</small></div><i aria-hidden="true">→</i>
+        <div><span>04 / Radio</span><strong>LoRa</strong><small>low-bandwidth telemetry</small></div><i aria-hidden="true">→</i>
+        <div class="adam-twin-node"><span>05 / Model</span><strong>Live twin</strong><small>space + state + risk</small></div>
+        <figcaption id="adam-pipeline-caption">Different sensors described different scales of the same physical machine. The browser joined them into one operational view.</figcaption>
+      </figure>
+
+      <div class="article-layout">
+        <aside class="article-aside"><span>08</span><p>Doosan / BCGDV<br>2018<br>UWB / IMU / LoRa<br>Browser 3D</p></aside>
+        <article class="prose article-prose">
+          <p class="lead">In 2018, I built a hardware prototype that could watch an excavator without using a camera.</p>
+          <p>The word "watch" matters. ADAM did not simply place a GPS pin on a map. It built a live spatial model of a working machine: where it was on a construction site, how its body and arm were oriented, whether it appeared active, and how close tagged personnel were to it.</p>
+          <p>The field hardware ran on an ESP32. Its attached sensors included GPS, Ultra Wide Band ranging, and a 9-axis IMU. The ESP32 sent compact telemetry over LoRa to a BeagleBoard command module. A browser application built using React.js, Babylon.js and Three.js turned that state into a live 3D excavator. BuntDB provided the embedded geospatial index.</p>
+          <p>The project was called ADAM. It was developed for Doosan in collaboration with BCG Digital Ventures, and the venture subsequently secured $20 million in funding through BCGDV.</p>
+
+          <h2>Why not use cameras?</h2>
+          <p>Construction sites are difficult places for vision systems. Dust clouds can obscure a lens. Lighting changes between open sun, shadow, and night work. Machines block one another, vibration shifts mounting positions, and every useful view creates another camera to clean, power, connect, and maintain.</p>
+          <p>A camera also gives you pixels before it gives you facts. Software still has to identify the machine, estimate its pose, recognize people, and infer distance. For this prototype, the useful questions were already known:</p>
+          <ul><li>Where is the excavator on the site?</li><li>Which direction are its articulated parts moving?</li><li>Is the machine active or idle?</li><li>Is a tagged person entering a dangerous proximity zone?</li><li>Is equipment operating while nobody is close enough to be its operator?</li></ul>
+          <p>ADAM chose sensors that answered those questions directly. It did not replace every possible camera use. It demonstrated that spatial awareness and operating context could survive conditions in which a clean line of sight could not be assumed.</p>
+
+          <h2>Four views of the same machine</h2>
+          <p>No single sensor carried the system. Each one described the excavator at a different scale.</p>
+
+          <h3>GPS: where it is on the site</h3>
+          <p>GPS supplied the broad outdoor position. That was enough to place the machine on a geospatial map, associate it with a work zone, and follow movement across the site.</p>
+          <p>GPS is useful at site scale, but it is not the right instrument for measuring the last few meters between a person and a bucket. Satellite fixes can drift, structures can block the sky, and global coordinates say little about local articulation. ADAM used GPS as the large coordinate system, not the whole answer.</p>
+
+          <h3>Ultra Wide Band: who is near it</h3>
+          <p>Ultra Wide Band, or UWB, supplied precise local ranging. A tag on the machine and tags carried by personnel could estimate their separation from radio time of flight. This gave the prototype a direct proximity signal without trying to identify a human shape in a dusty image.</p>
+          <p>That distinction made the safety model clearer. GPS answered "where on the site?" UWB answered "how far from this machine?" A person crossing a configured distance threshold could become an event, an alert, or an input to a risk calculation.</p>
+          <p>UWB still requires careful placement and calibration. Metal, obstruction, multipath, and tag position can affect a measurement. The prototype treated it as a ranging system whose quality had to be observed, not as a magic collision-avoidance guarantee.</p>
+
+          <h3>9-axis IMU: how it is moving</h3>
+          <p>A 9-axis inertial measurement system combines an accelerometer, gyroscope, and magnetometer. Together they produce orientation and motion estimates that are more useful than any one sensor alone.</p>
+          <p>Mapped onto the articulated parts of the 3D model, that telemetry turned roll, pitch, yaw, acceleration, and vibration into visible motion. The browser did not play a canned excavator animation. The digital excavator became a legible proxy for the physical machine.</p>
+          <p>Motion and vibration also helped distinguish quiet equipment from equipment that appeared operational. Combined with UWB presence, the system could surface a particularly wasteful state: machinery showing activity while no tagged operator was nearby.</p>
+
+          <h3>LoRa: how the site speaks</h3>
+          <p>The prototype did not need to stream video. Its payloads were compact: identity, time, position, orientation, motion, range, and status. LoRa was a good fit for carrying that kind of low-bandwidth telemetry over a wide industrial area while keeping sensor nodes power-conscious.</p>
+          <p>The radio layer turned isolated instruments into a site-level system. Devices could report through a gateway rather than depending on high-bandwidth connectivity at every machine.</p>
+
+          <h2>The hardware split</h2>
+          <p>The ESP32 was the field node attached to the machine. GPS, UWB, and the 9-axis IMU met there, close to the physical signals they measured. It timestamped and packaged those readings for the LoRa link.</p>
+          <p>The BeagleBoard was the command module. It received site telemetry and gave the application an edge computer on which to normalize device messages, maintain useful state, and serve the operational view. This separation kept sensing close to the machine while giving coordination and storage a more capable local home.</p>
+
+          <h2>From radio packets to a digital twin</h2>
+          <p>The interesting work began after a packet arrived. Raw sensor values are not a product. They have different coordinate systems, update rates, noise profiles, and failure modes.</p>
+          <p>The pipeline normalized device identity and timestamps, transformed geographic and local coordinates, smoothed motion, and connected each reading to the correct asset. BuntDB kept the live state close to the application and supplied spatial indexing through an R-tree. That made questions such as "what is inside this zone?" and "what is nearest to this asset?" natural operations rather than full scans.</p>
+          <p>React.js organized the operational interface. Babylon.js and Three.js handled the browser's spatial presentation: the site, the machine model, and the articulated transforms. The 3D view was not decoration. It compressed a stream of orientation values into something an operator could understand immediately.</p>
+
+          <figure class="system-diagram adam-stack" aria-labelledby="adam-stack-caption">
+            <div class="adam-stack-source"><span>Physical site</span><b>Excavator</b><b>Personnel tags</b></div>
+            <i aria-hidden="true">→</i>
+            <div><span>Field node</span><strong>ESP32</strong><small>GPS + UWB + 9-axis IMU</small></div>
+            <i aria-hidden="true">→</i>
+            <div><span>Radio</span><strong>LoRa</strong><small>compact site telemetry</small></div>
+            <i aria-hidden="true">→</i>
+            <div><span>Command module</span><strong>BeagleBoard</strong><small>BuntDB spatial state</small></div>
+            <i aria-hidden="true">→</i>
+            <div class="adam-stack-output"><span>Browser</span><strong>React + WebGL</strong><small>Babylon.js / Three.js</small></div>
+            <figcaption id="adam-stack-caption">The implementation path from physical movement to a queryable, visible system.</figcaption>
+          </figure>
+
+          <h2>State was more valuable than telemetry</h2>
+          <p>A useful industrial interface should not force someone to interpret six graphs before deciding whether a situation matters. ADAM translated streams into states.</p>
+          <div class="adam-state-grid" aria-label="Examples of states derived from machine activity and UWB presence">
+            <div><span>Quiet + no nearby tag</span><strong>Parked</strong></div>
+            <div><span>Active + operator nearby</span><strong>Operating</strong></div>
+            <div class="adam-state-risk"><span>Active + person too close</span><strong>Proximity risk</strong></div>
+            <div class="adam-state-waste"><span>Active + no operator nearby</span><strong>Possible idle waste</strong></div>
+          </div>
+          <p>These are operational interpretations, not universal truths. A production system needs calibrated thresholds, tag-health checks, role awareness, uncertainty, and site-specific safety policy. But even the prototype showed why combining sensors is more powerful than displaying them independently.</p>
+          <p>For safety, the critical output was distance with context. A person five meters from a parked excavator is different from a person five meters from a moving boom. For utilization, the critical output was activity with presence. A machine consuming energy without useful work or an operator nearby is a cost that can be observed and reduced.</p>
+
+          <h2>The wider ADAM venture</h2>
+          <p>The tracking prototype sat inside a larger industrial thesis. ADAM was structured as an incubation partnership between Doosan and BCG Digital Ventures, not as a one-off visualization.</p>
+          <p>The broader opportunity included predictive maintenance from high-frequency equipment data, digital-twin frameworks for plants and heavy assets, and a scalable software business that could serve Doosan before expanding to other industrial customers.</p>
+          <p>This early build made that ambition tangible. It joined a physical machine, custom sensor hardware, long-range telemetry, local spatial storage, and a browser twin into one working path. ADAM subsequently secured $20 million in venture funding through BCGDV.</p>
+          <blockquote>Funding showed that the prototype had completed one of its most important jobs: reduce a large venture idea to a system people could see, test, challenge, and choose to back.</blockquote>
+          <p>Funding did not turn a prototype into a finished industrial safety system. It created room to take the harder path from promising signal to calibrated product.</p>
+
+          <h2>What the video preserves</h2>
+          <p>The two-minute recording is simple and unusually useful. A real Doosan excavator occupies the upper half of the frame. A laptop in the foreground shows the ADAM interface and a blue 3D excavator over a map. As the physical machine changes pose, the browser model follows.</p>
+          <p>There is no polished launch film and no attempt to hide the wiring. The value is the correspondence between the two objects: steel outside, state inside the browser.</p>
+          <blockquote>A good digital twin should not merely resemble a machine. It should let the machine explain itself.</blockquote>
+
+          <h2>What stayed with me</h2>
+          <p>ADAM taught me to begin with the failure environment. Dust and occlusion made cameras unreliable, so the architecture used multiple forms of radio and inertial sensing. Global position, local range, and orientation were separate truths that became more useful when joined.</p>
+          <p>It also reinforced an idea that appears throughout distributed systems: real-time does not mean sending everything. It means preserving the right state quickly enough to change a decision. A small packet about pose, position, and proximity can be more valuable than a high-resolution stream nobody can interpret in time.</p>
+          <p>Most of all, the project showed how hardware becomes understandable through software. The 3D excavator was an interface to a distributed physical system. It made coordinate transforms, radio packets, and sensor fusion visible as motion, distance, risk, and use.</p>
+
+          <div class="article-links"><a href="https://www.youtube.com/watch?v=nvwv5xzTZI0" target="_blank" rel="noopener noreferrer">Watch the ADAM prototype ↗</a><a href="https://www.doosan.com/en/media-center/press-release_view?id=20171096&amp;page=18&amp;param2=construction" target="_blank" rel="noopener noreferrer">Doosan digital transformation ↗</a><a href="https://www.qorvo.com/products/p/DWM1001C" target="_blank" rel="noopener noreferrer">Qorvo UWB module ↗</a><a href="https://www.bosch-sensortec.com/en/software-tools/software/sensor-fusion-software-bsx" target="_blank" rel="noopener noreferrer">Bosch 9-axis sensor fusion ↗</a><a href="https://www.semtech.com/lora/applications/smart-supply-chain-logistics" target="_blank" rel="noopener noreferrer">LoRa asset tracking ↗</a><a href="https://github.com/tidwall/buntdb" target="_blank" rel="noopener noreferrer">BuntDB geospatial index ↗</a><a href="https://www.babylonjs.com/digitalTwinIot/" target="_blank" rel="noopener noreferrer">Babylon.js digital twins ↗</a></div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="site-footer"><span>Next archive note</span><a href="/writing/plasma-snakes/">Three Hours, Two Renderers, One Plasma Snake →</a></footer>
+  </div>
+</body>
+</html>

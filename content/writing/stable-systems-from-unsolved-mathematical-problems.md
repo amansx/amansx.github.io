@@ -1,14 +1,14 @@
 ---
 title: "Stable Systems from Unsolved Mathematical Problems"
 description: "Discovering Jos Stam's CPU-powered Stable Fluids in 2010 and the four practical functions that turn a small grid into believable smoke."
-date: 2010
+date: 2010-08
 category: "Graphics / Simulation"
 read_time: "7 minute read"
 thumbnail: "/assets/thumb-stable-fluids.svg"
 social_image: "/assets/thumb-stable-fluids.png"
 ---
 
-<iframe src="/experiments/stable-fluids/smokey-mcflame-face/" title="Smokey McFlame Face interactive fluid simulation" scrolling="no"></iframe>
+<iframe src="/experiments/stable-fluids/smokey-mcflame-face/?embed=1" title="Smokey McFlame Face interactive fluid simulation" scrolling="no"></iframe>
 
 In 2010, I discovered Jos Stam's CPU-powered Stable Fluids algorithm and became fascinated by a simple contradiction: smoke could look alive without making the computer solve every detail of real smoke.
 
