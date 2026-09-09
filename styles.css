@@ -173,6 +173,11 @@ img { display: block; max-width: 100%; }
 .text-link { display: inline-flex; min-height: 44px; align-items: center; padding: 10px 0; color: var(--red-dark); font: 700 12px/1.4 var(--mono); letter-spacing: .03em; text-decoration: none; }
 
 .featured-project { display: grid; grid-template-columns: 1.05fr .95fr; min-height: 390px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; }
+.featured-project + .featured-project { margin-top: 28px; }
+.featured-project-image { position: relative; min-height: 390px; overflow: hidden; border-right: 1px solid var(--line); background: var(--ink); }
+.featured-project-image::after { position: absolute; inset: 0; content: ""; background: linear-gradient(135deg, transparent 45%, rgba(240,82,69,.16)); pointer-events: none; }
+.featured-project-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 500ms ease, filter 300ms ease; }
+.featured-project-adam:hover .featured-project-image img, .featured-project-adam:focus-visible .featured-project-image img { filter: saturate(1.12) contrast(1.04); transform: scale(1.025); }
 .schematic { position: relative; min-height: 390px; overflow: hidden; border-right: 1px solid var(--line); background-color: var(--ink); background-image: radial-gradient(circle at 50% 50%, rgba(240,82,69,.14), transparent 34%), linear-gradient(rgba(247,243,235,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(247,243,235,.08) 1px, transparent 1px); background-size: auto, 32px 32px, 32px 32px; transition: background-color 360ms ease; }
 .schematic::before { position: absolute; z-index: 0; top: -20%; bottom: -20%; left: -32%; width: 24%; content: ""; background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent); transform: skewX(-12deg); animation: scan-field 8s ease-in-out infinite; }
 .system-routes { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; }
@@ -281,6 +286,8 @@ img { display: block; max-width: 100%; }
 .project-row h2 { margin: 10px 0 14px; font-size: clamp(38px, 4vw, 62px); line-height: .95; letter-spacing: -.05em; }
 .project-row p:not(.project-type) { max-width: 600px; margin: 0; color: var(--muted); font: 13px/1.6 var(--mono); }
 .project-row:hover p:not(.project-type) { color: #aaa8a1; }
+.project-thumb { width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--line); object-fit: cover; filter: saturate(.75); transition: filter 180ms ease, transform 180ms ease; }
+.project-row:hover .project-thumb { filter: saturate(1.08); transform: scale(1.015); }
 .mini-diagram { position: relative; height: 150px; border: 1px solid currentColor; opacity: .8; }
 .mini-diagram::before, .mini-diagram::after { position: absolute; content: ""; background: currentColor; }
 .mini-diagram::before { top: 50%; left: 10%; width: 80%; height: 1px; }
@@ -543,6 +550,7 @@ img { display: block; max-width: 100%; }
 .article-header { max-width: 1120px; margin: 0 auto 90px; }
 .article-meta { display: flex; justify-content: space-between; padding-bottom: 20px; border-bottom: 1px solid var(--ink); color: var(--muted); font: 10px/1.4 var(--mono); text-transform: uppercase; }
 .article-header h1 { max-width: 100%; margin: 54px 0 32px; overflow-wrap: anywhere; font-size: clamp(58px, 8vw, 118px); line-height: .92; letter-spacing: -.07em; }
+.article-header h1.adam-title { font-size: clamp(54px, 6.3vw, 92px); }
 .dek { max-width: 760px; margin-left: auto; color: var(--muted); font: 16px/1.7 var(--mono); }
 .article-layout { display: grid; grid-template-columns: 190px minmax(0, 720px); justify-content: center; gap: clamp(45px, 9vw, 130px); }
 .article-aside { padding-top: 8px; color: var(--muted); font: 10px/1.6 var(--mono); text-transform: uppercase; }
@@ -695,6 +703,7 @@ img { display: block; max-width: 100%; }
   .section-heading .text-link { margin-top: 12px; }
   .featured-project { grid-template-columns: 1fr; }
   .schematic { min-height: 320px; border-right: 0; border-bottom: 1px solid var(--line); }
+  .featured-project-image { min-height: 320px; border-right: 0; border-bottom: 1px solid var(--line); }
   .system-planet { width: 106px; }
   .orbit-shell-a { width: 204px; }
   .orbit-shell-b { width: 264px; }
