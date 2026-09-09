@@ -178,12 +178,17 @@ img { display: block; max-width: 100%; }
 .featured-project-image { position: relative; min-height: 390px; overflow: hidden; border-right: 1px solid var(--line); background-color: var(--ink); background-image: radial-gradient(circle at 50% 50%, rgba(55,189,211,.13), transparent 34%), linear-gradient(rgba(247,243,235,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(247,243,235,.08) 1px, transparent 1px); background-size: auto, 32px 32px, 32px 32px; }
 .featured-project-image::before { position: absolute; z-index: 2; top: -20%; bottom: -20%; left: -32%; width: 24%; content: ""; background: linear-gradient(90deg, transparent, rgba(255,255,255,.08), transparent); transform: skewX(-12deg); animation: scan-field 8s ease-in-out infinite; }
 .featured-project-image::after { position: absolute; z-index: 2; inset: 0; content: ""; background: linear-gradient(135deg, transparent 48%, rgba(240,82,69,.14)); pointer-events: none; }
-.featured-project-image img { position: absolute; z-index: 1; top: 50%; left: 50%; width: min(70%, 360px); height: auto; border: 1px solid rgba(247,243,235,.38); object-fit: contain; box-shadow: 0 0 46px rgba(55,189,211,.14); transform: translate(-50%,-50%); animation: adam-frame-drift 8s ease-in-out infinite alternate; transition: filter 300ms ease, box-shadow 400ms ease; }
+.featured-project-image img { position: absolute; z-index: 1; top: 50%; left: 50%; width: calc(100% - 48px); max-width: none; height: auto; border: 1px solid rgba(247,243,235,.38); object-fit: contain; box-shadow: 0 0 46px rgba(55,189,211,.14); transform: translate(-50%,-50%); transition: filter 300ms ease, box-shadow 400ms ease; }
 .featured-project-adam:hover .featured-project-image img, .featured-project-adam:focus-visible .featured-project-image img { filter: saturate(1.12) contrast(1.04); box-shadow: 0 0 64px rgba(55,189,211,.28); }
 .adam-routes { position: absolute; z-index: 3; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .adam-route { fill: none; stroke: rgba(115,218,235,.48); stroke-width: 1.2; stroke-dasharray: 5 9; vector-effect: non-scaling-stroke; animation: route-flow 8s linear infinite; }
+.adam-route-hot { stroke: rgba(255,118,105,.68); }
 .adam-packet { fill: var(--paper); filter: url(#adam-signal-glow); }
 .adam-packet-hot { fill: #ff7669; }
+.adam-source { fill: #73daeb; filter: url(#adam-signal-glow); }
+.adam-source-wave { fill: none; stroke: rgba(115,218,235,.72); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.adam-endpoint { fill: var(--ink); stroke: rgba(115,218,235,.8); stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+.adam-endpoint-hot { stroke: #ff7669; }
 .schematic { position: relative; min-height: 390px; overflow: hidden; border-right: 1px solid var(--line); background-color: var(--ink); background-image: radial-gradient(circle at 50% 50%, rgba(240,82,69,.14), transparent 34%), linear-gradient(rgba(247,243,235,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(247,243,235,.08) 1px, transparent 1px); background-size: auto, 32px 32px, 32px 32px; transition: background-color 360ms ease; }
 .schematic::before { position: absolute; z-index: 0; top: -20%; bottom: -20%; left: -32%; width: 24%; content: ""; background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent); transform: skewX(-12deg); animation: scan-field 8s ease-in-out infinite; }
 .system-routes { position: absolute; z-index: 1; inset: 0; width: 100%; height: 100%; }
@@ -658,7 +663,6 @@ img { display: block; max-width: 100%; }
 @keyframes ring-tilt { from { transform: rotate(-12deg) scaleX(.94); } to { transform: rotate(8deg) scaleX(1.08); } }
 @keyframes route-flow { to { stroke-dashoffset: -152; } }
 @keyframes signal-blink { 0%, 100% { opacity: .45; transform: scale(.72); } 50% { opacity: 1; transform: scale(1.18); } }
-@keyframes adam-frame-drift { from { transform: translate(-50%,-50%) scale(.96); } to { transform: translate(-50%,-50%) scale(1.02); } }
 @keyframes scan-field { 0%, 18% { left: -32%; } 72%, 100% { left: 118%; } }
 @keyframes ink-breathe { from { transform: scale(.94) rotate(-3deg); } to { transform: scale(1.04) rotate(4deg); } }
 @keyframes ink-drift-a { from { transform: rotate(-3deg) scale(.96); } to { transform: rotate(5deg) scale(1.03); } }
