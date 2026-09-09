@@ -14,9 +14,9 @@ Not your model, not your research. Here the phrase describes a custody limit: th
 
 In 2000, the Clay Mathematics Institute named seven problems whose solutions would close some of the deepest gaps in modern mathematics. Each carries a one-million-dollar prize, but the real reward is historical: a solution must survive publication, expert scrutiny, and time. Only the Poincaré conjecture has been resolved.
 
-The Navier–Stokes problem asks whether the equations used to describe fluid motion always produce smooth, well-behaved solutions in three dimensions, given suitable starting conditions, or whether a singularity can form in finite time. A singularity is a mathematical breakdown where some quantity becomes unbounded and the classical solution stops behaving as expected.
+The Navier-Stokes problem asks whether the equations used to describe fluid motion always produce smooth, well-behaved solutions in three dimensions, given suitable starting conditions, or whether a singularity can form in finite time. A singularity is a mathematical breakdown where some quantity becomes unbounded and the classical solution stops behaving as expected.
 
-This is easy to confuse with a different achievement. Engineers and graphics researchers already solve useful approximations of Navier–Stokes every day. Weather models, aircraft simulations, visual effects, games, and interactive art can all compute fluid motion without settling the prize problem. The prize asks for a proof about the equations themselves. A simulation asks for a useful numerical answer under chosen assumptions.
+This is easy to confuse with a different achievement. Engineers and graphics researchers already solve useful approximations of Navier-Stokes every day. Weather models, aircraft simulations, visual effects, games, and interactive art can all compute fluid motion without settling the prize problem. The prize asks for a proof about the equations themselves. A simulation asks for a useful numerical answer under chosen assumptions.
 
 > Mathematics asks whether the river can become impossible. Graphics asks whether we can make convincing smoke before the next frame.
 
@@ -24,7 +24,7 @@ This is easy to confuse with a different achievement. Engineers and graphics res
 
 By the late 1990s, physically based fluid animation was possible, but interactivity was fragile. Earlier graphics solvers commonly advanced a fluid directly from one grid state to the next. If velocity increased, the grid became finer, or the timestep grew too large, errors could compound until the simulation blew up. The safe response was to take smaller steps and perform more computation, which worked against real-time control.
 
-Jos Stam's creative move in *Stable Fluids* was not to discover Navier–Stokes. It was to change the definition of success. An engineering simulation may prioritize strict physical accuracy. An animator needs believable motion, immediate response, and a system that does not explode halfway through an interaction. Stam accepted some artificial damping in exchange for stability at large timesteps.
+Jos Stam's creative move in *Stable Fluids* was not to discover Navier-Stokes. It was to change the definition of success. An engineering simulation may prioritize strict physical accuracy. An animator needs believable motion, immediate response, and a system that does not explode halfway through an interaction. Stam accepted some artificial damping in exchange for stability at large timesteps.
 
 His solver separated the fluid update into understandable operations:
 
@@ -41,7 +41,7 @@ The backward transport step became especially influential. Instead of pushing a 
 
 Diffusion handles viscosity. A direct explicit update can overshoot when the timestep is large. Stam instead solves an implicit linear system for the future field, so the new grid already satisfies the diffusion relationship between neighboring cells. The solve costs more per step, but it removes the small-timestep restriction that made interaction brittle.
 
-The final projection restores incompressibility. Intermediate operations can leave cells behaving like unexplained sources or drains. Using the Helmholtz–Hodge decomposition, the solver finds a pressure field whose gradient contains that compressive component, then subtracts the gradient from velocity. The remaining field has zero divergence and conserves mass.
+The final projection restores incompressibility. Intermediate operations can leave cells behaving like unexplained sources or drains. Using the Helmholtz-Hodge decomposition, the solver finds a pressure field whose gradient contains that compressive component, then subtracts the gradient from velocity. The remaining field has zero divergence and conserves mass.
 
 *Stable Fluids* appeared at SIGGRAPH 1999. SIGGRAPH is the Association for Computing Machinery's flagship conference on computer graphics and interactive techniques, where foundational research often moves directly into films, games, design tools, and GPU hardware. A live, controllable three-dimensional fluid at that venue was not merely a paper result. It was a demonstration that artists could work with simulated smoke, gases, and flowing textures as responsive material.
 
@@ -51,7 +51,7 @@ We still use the idea because it solved the product problem as well as the mathe
 
 ## Then came the allegation
 
-On September 8, 2026, a widely shared [X post alleged that OpenAI stole a Navier–Stokes proof](https://x.com/ns123abc/status/2097423705240428932?s=20). Its story is direct: outside mathematicians had been working with Codex; OpenAI had their logs; the company found promising private work, scaled it with 10,000 agents, and then denied seeing the researchers' proof.
+On September 8, 2026, a widely shared [X post alleged that OpenAI stole a Navier-Stokes proof](https://x.com/ns123abc/status/2097423705240428932?s=20). Its story is direct: outside mathematicians had been working with Codex; OpenAI had their logs; the company found promising private work, scaled it with 10,000 agents, and then denied seeing the researchers' proof.
 
 [![Screenshot of Nik's original X post alleging that OpenAI used private Codex research to complete the proof](/assets/x-post-nik.png)](https://x.com/ns123abc/status/2097423705240428932?s=20)
 
@@ -119,7 +119,7 @@ A serious research tool should isolate work from training by default, pin model 
 
 [Jos Stam's publication notes](https://www.josstam.com/publications)
 
-[OpenAI's Navier–Stokes account](https://openai.com/index/navier-stokes-solution/)
+[OpenAI's Navier-Stokes account](https://openai.com/index/navier-stokes-solution/)
 
 [OpenAI's Lean formalization](https://github.com/openai/NavierStokesAndEuler)
 
