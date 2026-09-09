@@ -4,18 +4,50 @@ The personal site of Aman Singh: principal distributed systems engineer, ink art
 
 The site is plain HTML and CSS with Markdown sources under `content/writing`. It is generated and reviewed locally, then published directly to GitHub Pages without CI/CD.
 
-## Local preview
+## Run the site locally
 
-Caddy is pinned as a repository-local Go tool through `go.work` and
-`tools/go.mod`. With Go 1.25.1 or newer installed, run this from the repository
-root:
+### Prerequisite
+
+Install Go 1.25.1 or newer. Caddy does not need to be installed separately: the
+repository pins Caddy in `tools/go.mod` and makes it available through
+`go.work`.
+
+### Start the server
+
+From the repository root, run:
 
 ```sh
 go tool caddy run --config Caddyfile
 ```
 
-Open `http://127.0.0.1:8080/`. Caddy serves the repository root using the checked-in `Caddyfile` and disables browser caching for local edits.
+The first run downloads and compiles the pinned Caddy version. Later runs reuse
+Go's module and build caches.
 
-Stop the server with `Ctrl+C`.
+Open <http://127.0.0.1:8080/>. Clean directory routes work locally just as they
+do on GitHub Pages, for example:
 
-The `CNAME` file configures `anixir.com`; `favicon.ico` is the preserved Anixir favicon.
+- <http://127.0.0.1:8080/work/>
+- <http://127.0.0.1:8080/writing/>
+- <http://127.0.0.1:8080/about/>
+
+The checked-in `Caddyfile` serves the repository root over local HTTP and sends
+`Cache-Control: no-store`, so browser refreshes show current edits.
+
+Stop the foreground server with `Ctrl+C`.
+
+### Validate the Caddy configuration
+
+To check the configuration without starting the server:
+
+```sh
+go tool caddy validate --config Caddyfile
+```
+
+Run these commands from the repository root so Go discovers `go.work` and its
+local tool module.
+
+## Publishing
+
+The generated site is pushed directly to the `master` branch for GitHub Pages.
+There is no CI/CD build. The `CNAME` file configures `anixir.com`, and
+`favicon.ico` is the preserved Anixir favicon.
