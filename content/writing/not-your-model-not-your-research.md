@@ -53,6 +53,8 @@ We still use the idea because it solved the product problem as well as the mathe
 
 On September 8, 2026, a widely shared [X post alleged that OpenAI stole a Navier–Stokes proof](https://x.com/ns123abc/status/2097423705240428932?s=20). Its story is direct: outside mathematicians had been working with Codex; OpenAI had their logs; the company found promising private work, scaled it with 10,000 agents, and then denied seeing the researchers' proof.
 
+[![Screenshot of Nik's original X post alleging that OpenAI used private Codex research to complete the proof](/assets/x-post-nik.png)](https://x.com/ns123abc/status/2097423705240428932?s=20)
+
 [![Screenshot attached to the X post showing Sam Altman's response](/assets/x-post-sam-altman.png)](https://x.com/ns123abc/status/2097423705240428932/photo/1)
 
 [![Screenshot attached to the X post showing OpenAI's statement on data access](/assets/x-post-openai-statement.png)](https://x.com/ns123abc/status/2097423705240428932/photo/2)

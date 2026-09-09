@@ -571,6 +571,9 @@ img { display: block; max-width: 100%; }
 .post-evidence-grid a { display: block; padding: 0; }
 .post-evidence-grid img { width: 100%; height: auto; border: 1px solid #4b4946; background: #000; object-fit: contain; }
 .post-evidence figcaption { margin-top: 12px; color: var(--muted); font: 9px/1.5 var(--mono); text-transform: uppercase; }
+.post-source { max-width: 900px; margin-right: auto; margin-left: auto; }
+.post-source > a { display: block; padding: 0; border: 1px solid var(--line); background: #fff; }
+.post-source img { display: block; width: 100%; height: auto; }
 
 .about-hero { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: clamp(50px, 8vw, 130px); padding: 80px clamp(28px, 8vw, 130px) 120px; }
 .about-portrait { position: relative; }
