@@ -553,13 +553,14 @@ img { display: block; max-width: 100%; }
 .article-thumbnail { width: 100%; height: auto; aspect-ratio: 16 / 9; border: 1px solid var(--line); background: var(--paper-bright); object-fit: cover; }
 .article-thumbnail-feature { align-self: center; }
 .article-feature-copy { min-width: 0; }
-.article-feature h2 { max-width: 950px; margin: 0 0 24px; font-size: clamp(46px, 6vw, 88px); line-height: .96; letter-spacing: -.055em; }
+.article-feature h2 { max-width: 950px; margin: 0 0 24px; font-size: clamp(46px, 6vw, 88px); line-height: .96; letter-spacing: -.055em; transition: color 120ms ease; }
 .article-feature p { max-width: 700px; margin: 0 0 28px; color: var(--muted); font: 14px/1.7 var(--mono); }
+.article-feature:hover h2, .article-feature:focus-visible h2 { color: var(--red-dark); }
 .article-row { display: grid; grid-template-columns: 120px 170px minmax(0, 1fr) auto; align-items: center; gap: 30px; min-height: 150px; padding: 18px 0; border-bottom: 1px solid var(--line); text-decoration: none; }
 .writing-list .article-row:last-child { border-bottom: 0; }
 .article-row time, .article-row span { color: var(--muted); font: 10px/1 var(--mono); text-transform: uppercase; }
-.article-row h2 { margin: 0; font-size: clamp(24px, 3vw, 40px); letter-spacing: -.035em; }
-.article-row:hover h2 { color: var(--red-dark); }
+.article-row h2 { margin: 0; font-size: clamp(24px, 3vw, 40px); letter-spacing: -.035em; transition: color 120ms ease; }
+.article-row:hover h2, .article-row:focus-visible h2 { color: var(--red-dark); }
 
 .company-death-diagram { margin: 4.2em 0 5.2em; }
 .death-lane { padding: 26px; }
