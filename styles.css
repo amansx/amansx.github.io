@@ -718,8 +718,9 @@ img { display: block; max-width: 100%; }
 }
 
 .about-hero { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: clamp(50px, 8vw, 130px); padding: clamp(28px, 4vw, 56px) clamp(28px, 8vw, 130px) clamp(42px, 5vw, 72px); }
-.about-hero-text-only { grid-template-columns: 1fr; }
-.about-hero-text-only .about-copy { width: min(100%, 960px); margin: 0 auto; }
+.about-hero-text-only { grid-template-columns: 1fr; padding-right: clamp(28px, 6vw, 92px); padding-left: clamp(28px, 6vw, 92px); }
+.about-hero-text-only .about-copy { width: calc(100% - 210px); margin: 0 0 0 210px; }
+.about-hero-text-only .about-copy > p:not(.kicker) { max-width: none; }
 .about-portrait { position: relative; }
 .about-portrait::before { position: absolute; top: -20px; right: -20px; bottom: 20px; left: 20px; border: 1px solid var(--red); border-radius: 48% 48% 6px 6px; content: ""; }
 .about-portrait img { position: relative; width: 100%; aspect-ratio: .82; border-radius: 48% 48% 4px 4px; object-fit: cover; object-position: center 30%; filter: contrast(1.04); mix-blend-mode: multiply; }
@@ -771,6 +772,8 @@ img { display: block; max-width: 100%; }
   .portrait-composition { min-height: 540px; }
   .about-copy h1 { line-height: 1.06; letter-spacing: -.055em; }
   .section-heading, .page-intro { grid-template-columns: 1fr; align-items: start; }
+  .about-hero-text-only .about-copy { width: 100%; margin-left: 0; }
+  .company-logos-about { margin-left: 0; }
   .section-heading > .pill { justify-self: start; }
   .page-intro > p:last-child { max-width: 580px; }
   .project-row { grid-template-columns: 50px 1fr 220px; }
