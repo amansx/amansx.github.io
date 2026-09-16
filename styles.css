@@ -120,7 +120,8 @@ img { display: block; max-width: 100%; }
 }
 
 .social-rail { display: flex; grid-column: 1; grid-row: 1 / span 2; height: 370px; flex-direction: column; align-items: center; justify-content: center; gap: 18px; margin-left: -38px; }
-.social-rail a { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; padding: 8px; color: var(--muted); font: 11px/1 var(--mono); text-decoration: none; writing-mode: vertical-rl; transform: rotate(180deg); }
+.social-rail a { display: inline-flex; min-width: 44px; min-height: 44px; align-items: center; justify-content: center; padding: 8px; color: var(--muted); font: 11px/1 var(--mono); text-decoration: none; writing-mode: vertical-rl; transform: rotate(180deg); transition: color 120ms ease; }
+.social-rail a:hover, .social-rail a:focus-visible { color: var(--red-dark); }
 .social-rail span { width: 1px; height: 30px; background: var(--line); }
 .mobile-socials { display: none; }
 .about-socials { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px clamp(7px, 1vw, 14px); width: 100%; margin-top: 20px; }
@@ -762,7 +763,8 @@ img { display: block; max-width: 100%; }
   .hero-copy, .hero-intro { grid-column: 1; width: 100%; margin: 0; padding-left: 0; justify-self: start; text-align: left; }
   .hero h1 { margin-left: 0; text-align: left; }
   .mobile-socials { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px clamp(7px, 1vw, 14px); width: 100%; margin-top: 24px; }
-  .mobile-socials a { display: inline-flex; min-height: 44px; align-items: center; padding: 8px; color: var(--muted); font: 11px/1 var(--mono); text-decoration: none; }
+  .mobile-socials a { display: inline-flex; min-height: 44px; align-items: center; padding: 8px; color: var(--muted); font: 11px/1 var(--mono); text-decoration: none; transition: color 120ms ease; }
+  .mobile-socials a:hover, .mobile-socials a:focus-visible { color: var(--red-dark); }
   .mobile-socials span { width: clamp(14px, 2vw, 30px); height: 1px; background: var(--line); }
   .portrait-composition { grid-column: 2; grid-row: 1 / span 2; }
   .portrait-composition { min-height: 540px; }
