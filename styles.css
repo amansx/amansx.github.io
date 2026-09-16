@@ -583,7 +583,7 @@ img { display: block; max-width: 100%; }
 .study-five::after { top: 40%; right: 7%; left: 7%; height: 1px; border: 0; background: var(--ink); transform: rotate(-14deg); }
 .art-card figcaption { display: flex; justify-content: space-between; gap: var(--space-item-md); padding: var(--space-item-sm) 2px var(--space-item-md); font: 10px/1.4 var(--mono); text-transform: uppercase; }
 .art-card figcaption span:last-child { color: var(--muted); }
-.gallery-note { max-width: 640px; margin: 0 var(--gutter-page) var(--space-page-tail) auto; color: var(--muted); font: 12px/1.7 var(--mono); }
+.gallery-note { max-width: 640px; margin: 0 var(--gutter-page) var(--space-page-tail) auto; color: var(--muted); font: 12px/1.7 var(--mono); text-align: right; }
 
 .writing-list { padding-inline: var(--gutter-page); }
 .article-feature { display: grid; grid-template-columns: 150px minmax(240px, 34%) minmax(0, 1fr); align-items: center; column-gap: var(--space-item-md); padding: var(--space-card-y) 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line); text-decoration: none; }
