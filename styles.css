@@ -716,6 +716,8 @@ img { display: block; max-width: 100%; }
 }
 
 .about-hero { display: grid; grid-template-columns: .8fr 1.2fr; align-items: center; gap: clamp(50px, 8vw, 130px); padding: clamp(28px, 4vw, 56px) clamp(28px, 8vw, 130px) clamp(42px, 5vw, 72px); }
+.about-hero-text-only { grid-template-columns: 1fr; }
+.about-hero-text-only .about-copy { width: min(100%, 960px); margin: 0 auto; }
 .about-portrait { position: relative; }
 .about-portrait::before { position: absolute; top: -20px; right: -20px; bottom: 20px; left: 20px; border: 1px solid var(--red); border-radius: 48% 48% 6px 6px; content: ""; }
 .about-portrait img { position: relative; width: 100%; aspect-ratio: .82; border-radius: 48% 48% 4px 4px; object-fit: cover; object-position: center 30%; filter: contrast(1.04); mix-blend-mode: multiply; }
